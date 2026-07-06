@@ -2,7 +2,7 @@
 
 ## Current Version
 
-1.0.0
+1.1.0
 
 ---
 
@@ -38,7 +38,7 @@ main
 
 ## Completed Tickets
 
-1
+2
 
 ---
 
@@ -56,7 +56,7 @@ Unknown
 
 ## Last Commit
 
-15299e3 - [TICKET-0001] Fix version consistency in project_status.md
+a03250d - [TICKET-0002] Add ticket decomposition system
 
 ---
 
