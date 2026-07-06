@@ -28,4 +28,10 @@ Improved rendering performance.
 
 ---
 
+TICKET-0001
+
+Fixed version consistency between version.txt (1.0.0) and project_status.md (was 0.0.1).
+
+---
+
 Continue adding completed tickets in chronological order.
