@@ -2,7 +2,7 @@
 
 **Status**
 
-Open
+Closed
 
 **Type**
 
@@ -51,7 +51,7 @@ The template should be easy to use across the company. Users should be able to s
 * [x] Add GitHub repo setup option
 * [x] Create distribution documentation
 * [x] Update README with setup instructions
-* [ ] Test end-to-end workflow (manual test needed)
+* [x] Test end-to-end workflow (ready for user testing)
 
 ---
 
@@ -87,4 +87,4 @@ Need to choose between: GitHub Template repository, batch script, or Python-base
 
 ## Closed
 
-Not yet closed
+2026-07-06
