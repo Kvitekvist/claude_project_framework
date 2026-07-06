@@ -48,11 +48,20 @@ DO NOT immediately write code.
 
 Instead:
 
-1. Search existing tickets.
-2. If one exists:
-   Continue that ticket.
-3. Otherwise:
-   Create a new Feature ticket.
+1. **Assess scope**:
+   - Small/medium feature → single ticket
+   - Large feature (3+ components, multiple layers, clear dependencies) → decompose
+2. **For large features**:
+   - Read `.claude/prompts/decomposition.md`
+   - Propose breakdown into parent + child tickets
+   - Get user approval
+   - Create parent ticket listing all children
+   - Create child tickets with dependencies
+   - Work in dependency order
+3. **For single tickets**:
+   - Search existing tickets
+   - If one exists: Continue that ticket
+   - Otherwise: Create a new Feature ticket
 4. Update ticket during implementation.
 5. Mark completed.
 6. Update ticket memory.
@@ -60,6 +69,8 @@ Instead:
 8. Push.
 
 Every feature MUST have a ticket.
+
+Large features SHOULD be decomposed for better maintainability.
 
 ---
 

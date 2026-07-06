@@ -16,6 +16,18 @@ Low / Medium / High
 
 YYYY-MM-DD
 
+**Parent Ticket**
+
+None (or TICKET-YYYY if this is a child ticket)
+
+**Child Tickets**
+
+None (or list of TICKET-#### if this ticket has been decomposed)
+
+**Dependencies**
+
+None (or list of TICKET-#### that must be completed first)
+
 ---
 
 ## Description

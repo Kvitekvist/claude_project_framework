@@ -63,10 +63,19 @@ See `.claude/PROJECT_SKELETON.md` for the full, authoritative layout.
 
 ## Version
 
-Framework Version: 1.0.0
+Framework Version: 1.1.0
 
 See `.claude/framework_version.md` for framework-level version history and
 migration rules.
+
+### What's New in 1.1.0
+
+* **Ticket Decomposition** - Automatically break large requests into parent/child
+  tickets with dependency tracking
+* **Enhanced Ticket Template** - Support for parent tickets, child tickets, and
+  dependencies
+* **Decomposition Workflow** - Comprehensive guide in
+  `.claude/prompts/decomposition.md` for managing complex multi-part features
 
 ---
 

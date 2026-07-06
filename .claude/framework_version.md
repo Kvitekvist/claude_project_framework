@@ -1,9 +1,12 @@
 # AI Project Framework
 
-Framework Version: 1.0.0
+Framework Version: 1.1.0
 
 Created:
 2026-07-05
+
+Updated:
+2026-07-06
 
 ## Purpose
 
@@ -22,7 +25,9 @@ The goals are:
 ## Framework Components
 
 * Claude operating instructions
-* Ticket system
+* Ticket system with parent/child relationships
+* Dependency tracking between tickets
+* Decomposition workflow for large requests
 * Project memory
 * Architecture tracking
 * Build automation
