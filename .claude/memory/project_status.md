@@ -2,7 +2,7 @@
 
 ## Current Version
 
-0.0.1
+1.0.0
 
 ---
 
@@ -56,7 +56,7 @@ Unknown
 
 ## Last Commit
 
-None
+deba3ed - Add git_push.bat helper script
 
 ---
 
