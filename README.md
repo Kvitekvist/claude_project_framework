@@ -9,7 +9,33 @@ development, rather than accumulating undocumented, untracked changes.
 
 ---
 
-## How to Use This Template
+## Quick Start
+
+### Creating a New Project from This Template
+
+**Prerequisites**: Git and [GitHub CLI](https://cli.github.com/) installed
+
+```bash
+# Step 1: Create from template
+gh repo create my-new-project --template Kvitekvist/claude_project_framework --private --clone
+cd my-new-project
+
+# Step 2: Initialize your project
+.\scripts\init_project.bat
+
+# Step 3: Start building!
+```
+
+The initialization script will prompt you for project details and customize the template
+for your specific language, framework, and workflow.
+
+**See [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md) for complete setup instructions.**
+
+---
+
+## Manual Setup (Alternative)
+
+If you prefer to set up manually:
 
 1. Copy this entire folder to a new location and rename it for the new project.
 2. Open the project in Claude Code.
@@ -76,6 +102,22 @@ migration rules.
   dependencies
 * **Decomposition Workflow** - Comprehensive guide in
   `.claude/prompts/decomposition.md` for managing complex multi-part features
+
+---
+
+## For Repository Administrators
+
+### Enable GitHub Template Feature
+
+To make this repository usable as a template:
+
+1. Go to **Settings** in this GitHub repository
+2. Under **General**, check ✅ **Template repository**
+3. Save changes
+
+Users can then create new projects using the Quick Start commands above.
+
+See [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md) for administration details.
 
 ---
 
