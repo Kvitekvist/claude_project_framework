@@ -489,9 +489,13 @@
       var catKey = "cat:" + cat.id;
       var catAngle = (ci / Math.max(catCount, 1)) * Math.PI * 2 - Math.PI / 2;
       var catRadius = 230 + ci * 12;
+      var itemCount = cat.nodes.length;
+      if (cat.subcategories) {
+        itemCount += cat.subcategories.reduce(function(sum, sc) { return sum + sc.nodes.length; }, 0);
+      }
       var catNode = {
         kind: "category", label: cat.label,
-        meta: cat.nodes.length + (cat.nodes.length === 1 ? " item" : " items"),
+        meta: itemCount + (itemCount === 1 ? " item" : " items"),
         path: cat.id, color: color, r: 15,
         x: Math.cos(catAngle) * catRadius, y: Math.sin(catAngle) * catRadius,
         vx: 0, vy: 0, fx: null, fy: null,
@@ -501,11 +505,40 @@
       pushChild(catNode, center);
 
       if (viewMode === "departments") {
+        // Handle subcategories if they exist (e.g., ticket categories)
+        if (cat.subcategories && cat.subcategories.length > 0) {
+          cat.subcategories.forEach(function (subcat, si) {
+            var subKey = "sub:" + cat.id + ":" + subcat.id;
+            var sp = scatterNear(catNode.x, catNode.y, 60);
+            var subcatNode = {
+              kind: "subcategory", label: subcat.label,
+              meta: subcat.nodes.length + (subcat.nodes.length === 1 ? " file" : " files"),
+              path: "", color: color, r: 10,
+              x: sp.x, y: sp.y, vx: 0, vy: 0, fx: null, fy: null,
+              order: si, collapseKey: subKey, hideKeys: [catKey],
+              ancestorIds: [0, catNode.id], children: []
+            };
+            pushChild(subcatNode, catNode);
+
+            subcat.nodes.forEach(function (f, fi) {
+              var p = scatterNear(subcatNode.x, subcatNode.y, 45);
+              var fileNode = {
+                kind: "file", label: f.label, meta: f.meta || "", path: f.path || "",
+                color: color, r: f.path ? 4.5 : 7, x: p.x, y: p.y, vx: 0, vy: 0, fx: null, fy: null,
+                order: fi, collapseKey: null, hideKeys: [catKey, subKey],
+                ancestorIds: [0, catNode.id, subcatNode.id], children: []
+              };
+              pushChild(fileNode, subcatNode);
+            });
+          });
+        }
+
+        // Also handle any direct nodes on the category
         cat.nodes.forEach(function (f, fi) {
           var p = scatterNear(catNode.x, catNode.y, 70);
           var fileNode = {
             kind: "file", label: f.label, meta: f.meta || "", path: f.path || "",
-            color: color, r: 4.5, x: p.x, y: p.y, vx: 0, vy: 0, fx: null, fy: null,
+            color: color, r: f.path ? 4.5 : 7, x: p.x, y: p.y, vx: 0, vy: 0, fx: null, fy: null,
             order: fi, collapseKey: null, hideKeys: [catKey],
             ancestorIds: [0, catNode.id], children: []
           };
@@ -579,9 +612,10 @@
 
     nodes.forEach(function (n) {
       if (n.kind === "category") edges.push({ a: 0, b: n.id, k: 0.02 });
-      else if (n.kind === "folder" || n.kind === "file") {
+      else if (n.kind === "subcategory" || n.kind === "folder" || n.kind === "file") {
         var parentId = n.ancestorIds[n.ancestorIds.length - 1];
-        edges.push({ a: parentId, b: n.id, k: n.kind === "folder" ? 0.03 : 0.05 });
+        var springK = n.kind === "subcategory" ? 0.025 : (n.kind === "folder" ? 0.03 : 0.05);
+        edges.push({ a: parentId, b: n.id, k: springK });
       }
     });
 
@@ -659,9 +693,18 @@
     (genDate && !isNaN(genDate) ? genDate.toLocaleString() : (DATA.generated || ""));
 
   var totalCatCount = DATA.categories.length;
-  var totalFileCount = DATA.categories.reduce(function (a, c) { return a + c.nodes.length; }, 0);
+  var totalFileCount = DATA.totalFiles || DATA.categories.reduce(function (a, c) {
+    var count = c.nodes.filter(function(n) { return n.path; }).length;
+    if (c.subcategories) {
+      count += c.subcategories.reduce(function(sa, sc) {
+        return sa + sc.nodes.filter(function(n) { return n.path; }).length;
+      }, 0);
+    }
+    return a + count;
+  }, 0);
+  var totalNodeCount = DATA.categories.reduce(function (a, c) { return a + c.nodes.length; }, 0);
   document.getElementById("hud-stats").innerHTML =
-    "<span><b>" + totalCatCount + "</b> categories</span><span><b>" + totalFileCount + "</b> nodes</span>";
+    "<span><b>" + totalCatCount + "</b> categories</span><span><b>" + totalNodeCount + "</b> nodes</span>";
   document.getElementById("search-input").placeholder = "Search " + totalFileCount + " files… ( / )";
 
   // ---------------------------------------------------------------
@@ -672,10 +715,14 @@
   DATA.categories.forEach(function (cat, ci) {
     var color = cat.color || PALETTE[ci % PALETTE.length];
     var key = "cat:" + cat.id;
+    var totalCount = cat.nodes.length;
+    if (cat.subcategories) {
+      totalCount += cat.subcategories.reduce(function(sum, sc) { return sum + sc.nodes.length; }, 0);
+    }
     var row = document.createElement("div");
     row.className = "legend-row";
     row.innerHTML = '<span class="legend-dot" style="background:' + color + ';color:' + color + '"></span>' +
-      '<span>' + cat.label + '</span><span class="legend-count">' + cat.nodes.length + '</span>';
+      '<span>' + cat.label + '</span><span class="legend-count">' + totalCount + '</span>';
     row.addEventListener("click", function () {
       if (state.collapsed.has(key)) state.collapsed.delete(key); else state.collapsed.add(key);
       recomputeVisibility();
@@ -1016,7 +1063,7 @@
       ctx.fill();
 
       if (n.kind !== "file" || n === hoverNode || n === pinnedNode || state.showFileNames) {
-        ctx.font = (n.kind === "center" ? "700 13px" : (n.kind === "category" || n.kind === "folder") ? "700 12px" : "11px") +
+        ctx.font = (n.kind === "center" ? "700 13px" : (n.kind === "category" || n.kind === "subcategory" || n.kind === "folder") ? "700 12px" : "11px") +
           " -apple-system, Segoe UI, sans-serif";
         ctx.fillStyle = "rgba(244,246,251," + (dim ? 0.25 : 0.92) + ")";
         ctx.textAlign = "center";

@@ -32,7 +32,7 @@ layout:
 | --------------- | ---------------------------------------------------------------------- |
 | Memory          | `.claude/memory/*.md`                                                  |
 | Skills           | `.claude/skills/*/SKILL.md` (one node per skill folder)                |
-| Tickets          | `tickets/open/*.md`, `tickets/closed/*.md` (split into two categories if both are non-trivial in size, otherwise merge) |
+| Tickets          | `tickets/{open,closed}/{features,bugs,documentation,infrastructure,research}/*.md` - create SUBCATEGORY nodes for each ticket category (features/bugs/etc.) that contain actual tickets |
 | Docs             | `docs/**`, root-level `README.md`, `CHANGELOG.md`                      |
 | Source           | `src/**`                                                                |
 | Tests            | `tests/**`                                                              |
@@ -78,8 +78,9 @@ choice, keep it short), and `path` (repo-relative path for the tooltip).
 
 **Cap large categories.** If a category has more than ~60 files, include the 60
 most recently modified and fold the rest into one synthetic node labeled
-`"+N more"` (no path) so the layout stays legible instead of choking on
-hundreds of dots.
+`"+N more files"` (no path, larger size to stand out) so the layout stays 
+legible instead of choking on hundreds of dots. This "+N more files" node 
+should be visually distinct (larger radius) in the rendering.
 
 ## Step 3 - Determine the center node
 
@@ -96,6 +97,7 @@ Assemble JSON matching this schema:
 {
   "project": "string - project name",
   "generated": "ISO 8601 timestamp",
+  "totalFiles": 0,
   "center": { "label": "string", "sublabel": "string" },
   "categories": [
     {
@@ -103,11 +105,24 @@ Assemble JSON matching this schema:
       "label": "Display Label",
       "nodes": [
         { "label": "filename.ext", "meta": "2.1 KB · 3d ago", "path": "relative/path" }
+      ],
+      "subcategories": [
+        {
+          "id": "short-slug",
+          "label": "Subcategory Label",
+          "nodes": [
+            { "label": "filename.ext", "meta": "2.1 KB · 3d ago", "path": "relative/path" }
+          ]
+        }
       ]
     }
   ]
 }
 ```
+
+**totalFiles**: Count of actual files across all categories/subcategories (excludes "+N more files" synthetic nodes). This is displayed in the search bar as "N files" not "N nodes".
+
+**subcategories** (optional): For categories like Tickets that have natural subdivisions (features/bugs/etc.), create subcategory nodes that sit between the category node and the file nodes. Subcategories form an intermediate ring in the radial layout.
 
 Category `color` is optional - omit it and the template assigns one from its
 built-in palette automatically, in category order. Only set `color` explicitly
