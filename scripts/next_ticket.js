@@ -14,10 +14,28 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 
 function scanDir(dir) {
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir)
-    .map((name) => /^(\d{4})-/.exec(name))
+  let nums = [];
+
+  // Scan for files directly in the directory (flat structure)
+  const files = fs.readdirSync(dir, { withFileTypes: true });
+  nums.push(...files
+    .filter(f => f.isFile())
+    .map(f => /^(\d{4})-/.exec(f.name))
     .filter(Boolean)
-    .map((m) => parseInt(m[1], 10));
+    .map(m => parseInt(m[1], 10)));
+
+  // Scan category subfolders
+  const subdirs = files.filter(f => f.isDirectory());
+  for (const subdir of subdirs) {
+    const subPath = path.join(dir, subdir.name);
+    const subFiles = fs.readdirSync(subPath);
+    nums.push(...subFiles
+      .map(name => /^(\d{4})-/.exec(name))
+      .filter(Boolean)
+      .map(m => parseInt(m[1], 10)));
+  }
+
+  return nums;
 }
 
 function highestFromOrigin() {

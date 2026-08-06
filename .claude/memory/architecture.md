@@ -32,6 +32,26 @@ Describe supporting services.
 
 ## Folder Responsibilities
 
+### Ticket System Structure
+
+Tickets are organized in category-based subfolders for scalability:
+
+```
+tickets/
+├── open/
+│   ├── features/       # New functionality, enhancements
+│   ├── bugs/           # Bug fixes, defects
+│   ├── documentation/  # Docs, comments, guides
+│   ├── infrastructure/ # Build, CI/CD, tooling
+│   └── research/       # Investigation, analysis
+├── closed/             # Same structure
+└── archived/           # Same structure
+```
+
+See `docs/TICKET_CATEGORIES.md` for detailed category guidance.
+
+### Other Folders
+
 Explain what each major folder contains.
 
 ---

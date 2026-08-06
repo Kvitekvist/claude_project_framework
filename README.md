@@ -64,8 +64,10 @@ If you prefer to set up manually:
   refactors, releases, and initializing a brand-new project.
 * **`.claude/templates/`** — reusable templates for README, CHANGELOG, and
   ticket files.
-* **`tickets/`** — every feature and bug fix is tracked as a ticket
-  (`open/`, `closed/`, `archived/`), based on `tickets/TEMPLATE.md`.
+* **`tickets/`** — every feature and bug fix is tracked as a ticket,
+  organized by category (`features/`, `bugs/`, `documentation/`,
+  `infrastructure/`, `research/`) in `open/`, `closed/`, and `archived/`
+  directories. See `docs/TICKET_CATEGORIES.md` for the category system.
 * **`scripts/`** — helper batch scripts (`setup`, `build`, `run`,
   `git_commit`, `clear_cache`, `release`), customized per project's stack.
 

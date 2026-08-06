@@ -8,6 +8,10 @@ Open
 
 Feature / Bug / Enhancement
 
+**Category**
+
+features / bugs / documentation / infrastructure / research
+
 **Priority**
 
 Low / Medium / High
