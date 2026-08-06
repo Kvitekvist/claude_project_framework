@@ -1,3 +1,12 @@
+<!-- Filename convention (since 2026-07-23): save this ticket as
+     tickets/{open,closed}/NNNN-Short Title.md — the 4-digit ticket
+     number, a hyphen, then a short descriptive title derived from the
+     ticket's own content. No "TICKET-" prefix in the filename (the
+     "# TICKET-XXXX" heading below remains the ticket's internal ID,
+     used in cross-references, commit messages, and memory files).
+     See .claude/memory/project_memory.md's "Ticket file naming"
+     entry for the full rationale. -->
+
 # TICKET-XXXX
 
 **Status**
@@ -61,6 +70,16 @@ None (or list of TICKET-#### that must be completed first)
 ---
 
 ## Notes
+
+---
+
+## Token Usage
+
+<!-- Run /log-cost and paste /cost output to populate this section -->
+
+| Session | Input | Output | Cache Read | Cache Write | Cost |
+|---------|-------|--------|------------|-------------|------|
+| | | | | | |
 
 ---
 

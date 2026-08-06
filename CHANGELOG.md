@@ -4,6 +4,33 @@ All notable changes to this template framework should be documented here.
 
 ---
 
+## Version 1.2.0 — 2026-08-06
+
+### Added
+
+* **Second Brain System** - Comprehensive AI project management framework from FlowGrid
+* Smart context loading via `context-load` skill (70-80% token cost reduction)
+* Safe ticket numbering via `new-ticket` skill (prevents concurrent session collisions)
+* Token usage tracking via `log-cost` command
+* Memory archival system via `memory-archive` skill
+* Enhanced CLAUDE.md with context-load integration
+* Framework structure files: PROJECT_RULES.md, PROJECT_SKELETON.md, framework_version.md, project_config.md
+* Enhanced memory templates: coding_conventions.md, project_status.md, tech_stack.md
+* Memory archive directory structure (`.claude/memory/archive/`)
+* Changelog append skill for automated changelog updates
+* Definition-of-done skill for commit verification
+* Helper scripts: `next_ticket.bat` and `next_ticket.js`
+* Comprehensive `docs/SECOND_BRAIN.md` documentation
+
+### Changed
+
+* Ticket template now includes Token Usage tracking section
+* Ticket naming convention documented (NNNN-Short Title.md format)
+* All closed tickets renamed to new convention
+* Enhanced "Every Session" workflow in CLAUDE.md to use context-load skill
+
+---
+
 ## Version 1.1.0 — 2026-07-06
 
 ### Added

@@ -28,11 +28,12 @@ Never start implementing features before the project structure exists.
 
 # Every Session
 
-Before writing code always:
+Before writing code always load context via the `context-load` skill
+(`.claude/skills/context-load/`):
 
-1. Read .claude/memory/project_memory.md
-2. Read .claude/memory/architecture.md
-3. Read .claude/memory/ticket_memory.md
+1. Read .claude/memory/project_memory.md in full (trimmed to stay small — see its own archive note)
+2. Read .claude/memory/architecture.md in full
+3. Grep .claude/memory/ticket_memory.md (and .claude/memory/archive/ if needed) for what's relevant — do not read either in full by default
 4. Scan open tickets
 5. Understand current milestone
 
@@ -64,9 +65,10 @@ Instead:
    - Otherwise: Create a new Feature ticket
 4. Update ticket during implementation.
 5. Mark completed.
-6. Update ticket memory.
-7. Commit.
-8. Push.
+6. Run `/log-cost` to record token usage on the ticket.
+7. Update ticket memory.
+8. Commit.
+9. Push.
 
 Every feature MUST have a ticket.
 
