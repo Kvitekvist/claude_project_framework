@@ -44,6 +44,7 @@ The main instruction file now integrates with the `context-load` skill for smart
 
 - **context-load**: Smart memory loading at session start (grep instead of full reads)
 - **new-ticket**: Safe ticket number assignment (prevents concurrent session collisions)
+- **node-map**: Interactive HTML visualization of project structure as radial node graph
 - **changelog-append**: Automated changelog updates
 - **definition-of-done**: Checklist verification before closing tickets
 - **memory-archive**: Archive old entries to keep memory files small
@@ -77,8 +78,27 @@ The main instruction file now integrates with the `context-load` skill for smart
 `tickets/TEMPLATE.md` now includes:
 
 - Filename convention documentation
+- Category field for subfolder organization
 - Parent/Child/Dependencies fields for ticket decomposition
 - Token Usage tracking section (populated by `/log-cost`)
+
+### 9. Ticket Category System
+
+Tickets organized in category-based subfolders for scalability:
+
+```
+tickets/
+├── open/
+│   ├── features/       # New functionality, enhancements
+│   ├── bugs/           # Bug fixes, defects
+│   ├── documentation/  # Docs, comments, guides
+│   ├── infrastructure/ # Build, CI/CD, tooling
+│   └── research/       # Investigation, analysis
+├── closed/             # Same structure
+└── archived/           # Same structure
+```
+
+See `docs/TICKET_CATEGORIES.md` for the complete category guide.
 
 ---
 
@@ -133,18 +153,21 @@ The main instruction file now integrates with the `context-load` skill for smart
 
 ### Ticket Naming
 
-Since 2026-07-23, tickets are named: `tickets/{open,closed}/NNNN-Short Title.md`
+Tickets are named: `tickets/{open,closed}/[category]/NNNN-Short Title.md`
 
+- Category subfolder (features/bugs/documentation/infrastructure/research)
 - 4-digit ticket number (no `TICKET-` prefix in filename)
 - Hyphen separator
 - Short descriptive title
 - Internal heading still uses `# TICKET-XXXX`
+- Flat structure still supported for backward compatibility
 
 ### Ticket Number Assignment
 
 Always use `scripts/next_ticket.bat` to get the next ticket number:
 
 - Checks both local and `origin/main` (prevents concurrent session collisions)
+- Scans both flat structure and category subfolders
 - Warns if origin is ahead (prompts you to pull first)
 - Falls back to local-only if offline (with explicit warning)
 
@@ -171,8 +194,18 @@ Loads session context efficiently:
 
 Creates a new ticket safely:
 1. Runs `scripts/next_ticket.bat` to get next available number
-2. Creates ticket file with proper naming convention
-3. Updates ticket memory when closed
+2. Determines appropriate category (features/bugs/documentation/infrastructure/research)
+3. Creates ticket file in category subfolder with proper naming convention
+4. Updates ticket memory when closed
+
+### /node-map
+
+Generates interactive project visualization:
+1. Scans project structure (memory, skills, tickets, docs, source)
+2. Creates self-contained HTML with radial node graph
+3. Outputs to `docs/node-map.html`
+4. Opens directly in any browser (no dependencies)
+5. Interactive: zoom, pan, drag, click to explore connections
 
 ### /log-cost
 
@@ -252,10 +285,12 @@ The following components were successfully copied:
 ✅ Framework structure (PROJECT_RULES, PROJECT_SKELETON, framework_version)
 ✅ Enhanced memory templates (6 memory files + archive structure)
 ✅ All prompts (7 workflow guides)
-✅ Core skills (5 essential skills)
+✅ Core skills (6 essential skills: context-load, new-ticket, node-map, changelog-append, definition-of-done, memory-archive)
 ✅ Commands (log-cost)
-✅ Helper scripts (next_ticket.bat/js)
-✅ Enhanced ticket template with Token Usage tracking
+✅ Helper scripts (next_ticket.bat/js with subfolder support)
+✅ Enhanced ticket template with Category and Token Usage tracking
+✅ Ticket category system (features/bugs/documentation/infrastructure/research)
+✅ Interactive node-map visualization
 
 ---
 
@@ -290,15 +325,23 @@ The following FlowGrid-specific components were NOT copied (project-specific):
 
 4. **Leverage Skills**:
    - Use `context-load` at session start
-   - Use `new-ticket` when creating tickets
+   - Use `new-ticket` when creating tickets (handles categories automatically)
+   - Use `node-map` to visualize project structure
    - Use `log-cost` after work sessions
    - Use `memory-archive` when memory files grow large
+
+5. **Explore the Node Map**:
+   - Run `/node-map` to generate `docs/node-map.html`
+   - Opens in browser to see your project's "brain" as an interactive graph
+   - Central node (CLAUDE.md) connected to categories (Memory, Skills, Tickets, etc.)
+   - Zoom, pan, drag nodes to explore structure
+   - Click nodes to highlight connections
 
 ---
 
 ## Framework Version
 
-Current Version: **1.1.0**
+Current Version: **1.2.0**
 
 This version includes:
 - Ticket decomposition workflow
@@ -307,6 +350,9 @@ This version includes:
 - Token usage tracking
 - Smart context loading
 - Memory archival system
+- **Ticket category system** (features/bugs/documentation/infrastructure/research)
+- **Interactive node-map visualization** (radial graph of project structure)
+- Enhanced next_ticket.js with subfolder support
 
 ---
 
@@ -324,10 +370,25 @@ For questions or issues with the second brain system:
 The second brain system transforms Claude Code from a stateless tool into a persistent development partner with:
 
 - **Long-term memory** across sessions
-- **Token-efficient** context loading
+- **Token-efficient** context loading (70-80% savings)
 - **Smart workflows** for features, bugs, and decomposition
 - **Historical tracking** without token waste
 - **Concurrent-safe** ticket management
+- **Organized ticket categories** for scalability
+- **Interactive visualization** of project structure
 - **Automatic documentation** of project evolution
 
 Enjoy building with your new second brain! 🧠
+
+---
+
+## Visualizing Your Brain
+
+Use `/node-map` to generate an interactive visualization of your project:
+
+- **Center**: CLAUDE.md (your project's brain)
+- **Categories**: Memory, Skills, Tickets, Docs, Source, Scripts
+- **Connections**: Visual graph showing relationships
+- **Interactive**: Zoom, pan, drag nodes, click to explore
+
+The node map updates dynamically as your project grows, providing a living diagram of your second brain's structure.
