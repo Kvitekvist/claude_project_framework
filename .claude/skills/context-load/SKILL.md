@@ -58,6 +58,33 @@ grow to that size in the first place. Don't rebuild the problem.
    file to read in full; open individual ticket files only for the ones
    relevant to the current request.
 
+## Expert Analysis Capability
+
+When researching patterns or implementing features, consider analyzing expert practitioners:
+
+1. **Identify experts**: If user provides GitHub accounts or mentions specific developers, analyze their repositories
+
+2. **Deep-dive analysis**:
+   - List all repositories with descriptions, stars, topics
+   - Identify patterns in their workflow, tools, project structures
+   - Extract methodologies and frameworks (e.g., Four Cs, Three Ms, gauntlet loop)
+   - Analyze specific key projects for implementation details
+
+3. **Document findings** in separate expert analysis file:
+   - `docs/EXPERT_ANALYSIS.md` for detailed patterns
+   - Extract proven methodologies that can be reused
+   - Identify architectural principles
+   - Cite specific repositories and projects
+
+4. **Integration**: Combine expert patterns with industry research for comprehensive recommendations
+
+**Example**: Analyzing nateherkai (AIS-OS, token-dashboard) and robonuggets (gauntlet-loop, calibrate) yielded Four Cs framework, quality bar methodology, and self-improvement patterns that wouldn't be found in generic research.
+
+**When to use**: 
+- Implementing complex features (skill systems, quality frameworks)
+- Research requests that mention specific developers
+- When generic industry sources lack concrete implementation patterns
+
 ## Why this is safe
 
 Nothing was deleted in the trim — every historical entry still exists,

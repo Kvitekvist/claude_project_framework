@@ -13,6 +13,10 @@ actually run or a file to actually open, not a box to mentally check off.
 
 ## The checklist
 
+- [ ] **Fix verified with user's repro case** (bug fixes only) — if the user
+      provided a specific workflow, dataset, or error to reproduce, verify
+      the fix resolves that exact issue before marking the ticket as
+      implemented. Not applicable to features or refactors.
 - [ ] **Build.** `cd src && src/node_modules/.bin/vite build` — not
       `npx vite build`, which resolves a different, unrelated `vite`/
       `rolldown` install that fails to find `index.html`. This is a known
@@ -53,6 +57,9 @@ actually run or a file to actually open, not a box to mentally check off.
       user-facing behavior documented there.
 - [ ] **No dead code left behind**: unused imports, an abandoned first
       approach, a debug `console.log` added while investigating.
+- [ ] **Branch verified**: confirm current branch is `feature/TICKET-####` or 
+      `bugfix/TICKET-####`, NOT `main`. Run `git branch --show-current` — if 
+      it returns `main`, stop and create the proper ticket branch first.
 - [ ] **Commit message format**: `[TICKET-####] Short description` — verify
       the ticket number in the message matches the actual ticket file,
       especially after any renumbering (see the `new-ticket` skill).
