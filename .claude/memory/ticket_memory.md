@@ -52,4 +52,10 @@ Installed FlowGrid's "second brain" system into Template. Added smart context lo
 
 ---
 
+TICKET-0005
+
+Added ticket subfolder structure system. Created category-based organization (features/bugs/documentation/infrastructure/research) for tickets/open/, tickets/closed/, tickets/archived/. Updated ticket template, new-ticket skill, next_ticket.js for subfolder support. Created TICKET_CATEGORIES.md guide and migrate_tickets.bat helper. Maintains backward compatibility with flat structure.
+
+---
+
 Continue adding completed tickets in chronological order.
