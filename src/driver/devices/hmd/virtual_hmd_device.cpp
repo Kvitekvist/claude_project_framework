@@ -15,6 +15,10 @@ struct SharedInputData {
     bool left_grip;
     bool right_trigger;
     bool right_grip;
+    bool button_a;
+    bool button_b;
+    bool button_x;
+    bool button_y;
     bool running;
 };
 

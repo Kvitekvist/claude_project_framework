@@ -18,6 +18,12 @@ struct SharedInputData {
     bool right_trigger;
     bool right_grip;
 
+    // Face buttons
+    bool button_a;
+    bool button_b;
+    bool button_x;
+    bool button_y;
+
     bool running;
 };
 
@@ -29,6 +35,7 @@ int main() {
     std::cout << "  Space/Ctrl   - Move up/down" << std::endl;
     std::cout << "  Left Click   - Right trigger" << std::endl;
     std::cout << "  Right Click  - Right grip" << std::endl;
+    std::cout << "  1/2/3/4      - A/B/X/Y buttons" << std::endl;
     std::cout << "  ESC          - Exit" << std::endl;
     std::cout << std::endl;
 
@@ -72,6 +79,10 @@ int main() {
     pData->left_grip = false;
     pData->right_trigger = false;
     pData->right_grip = false;
+    pData->button_a = false;
+    pData->button_b = false;
+    pData->button_x = false;
+    pData->button_y = false;
     pData->running = true;
 
     std::cout << "Shared memory created. Driver should connect..." << std::endl;
@@ -143,6 +154,12 @@ int main() {
         pData->right_grip = (GetAsyncKeyState(VK_MBUTTON) & 0x8000) != 0;
         pData->left_trigger = (GetAsyncKeyState(VK_XBUTTON1) & 0x8000) != 0;
         pData->left_grip = (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0;
+
+        // Face buttons (1, 2, 3, 4 keys)
+        pData->button_a = (GetAsyncKeyState('1') & 0x8000) != 0;
+        pData->button_b = (GetAsyncKeyState('2') & 0x8000) != 0;
+        pData->button_x = (GetAsyncKeyState('3') & 0x8000) != 0;
+        pData->button_y = (GetAsyncKeyState('4') & 0x8000) != 0;
 
         Sleep(16);  // ~60 FPS
     }
