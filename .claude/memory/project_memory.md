@@ -8,41 +8,93 @@ Update continuously.
 
 ## Project Vision
 
-Describe the long-term goal.
+Build a production-ready GPU-accelerated ML inference API that makes it trivially easy for consumers to run ML models on datasets.
+
+**Core Value Proposition**: Connect to API, pick model from dropdown, select features/target via checkboxes, submit job, get predictions. Simple as that.
+
+**Target Hardware**: RTX 4080 Super (16GB VRAM)
+
+**Long-term Goal**: Enterprise-grade ML inference platform with AutoML, explainability, multi-GPU support, and comprehensive developer tools.
 
 ---
 
 ## Current Milestone
 
-Current development milestone.
+**Phase 1: Foundation (MVP)** - Build working inference pipeline
+
+**Target**: Users can upload CSV, select model, choose features/target, and get predictions with metrics.
+
+**Tickets**: TICKET-0002 through TICKET-0007 (6 tickets)
+
+**Current Focus**: Starting TICKET-0002 (Core API Infrastructure Setup)
 
 ---
 
 ## Active Priorities
 
-*
+1. **Complete Phase 1 MVP** (TICKET-0002 through TICKET-0007)
+   - Core API infrastructure with GPU support
+   - Model management system
+   - Data ingestion and schema detection
+   - Inference pipeline with preprocessing
+   - Basic web UI
+   - Authentication and security
 
-*
+2. **Documentation First**
+   - Comprehensive design doc created: `docs/GPU_ML_API_DESIGN.md`
+   - All Phase 1 tickets have detailed implementation plans
+   - Phase 2-5 tickets created as placeholders
 
-*
+3. **Follow Phased Approach**
+   - Phase 1: MVP (immediate)
+   - Phase 2: Production readiness (job queues, monitoring)
+   - Phase 3: Advanced ML features (AutoML, explainability)
+   - Phase 4: Developer experience (SDK, CLI)
+   - Phase 5: Scale & optimization (multi-GPU, compliance)
 
 ---
 
 ## Technical Debt
 
-List known technical debt.
+None yet (greenfield project).
+
+**Future Considerations**:
+- Phase 1 uses SQLite (migrate to PostgreSQL in Phase 2)
+- Phase 1 uses local file storage (migrate to MinIO/S3 in Phase 2)
+- Basic preprocessing only (advanced pipelines in Phase 2)
 
 ---
 
 ## Known Issues
 
-List unresolved problems.
+None yet (project just started).
 
 ---
 
 ## Future Ideas
 
-Ideas worth considering later.
+**Phase 2-5 Roadmap** (see TICKET-0001 for full breakdown):
+
+- Job queue system with Redis/Celery
+- Multiple data sources (SQL, S3, APIs, Google Sheets)
+- Advanced preprocessing and feature engineering
+- Model versioning and A/B testing
+- Prometheus/Grafana monitoring
+- AutoML capabilities
+- Model explainability (SHAP, LIME)
+- Deep learning, NLP, time series models
+- Python SDK and CLI tool
+- Jupyter integration
+- Multi-GPU support
+- Cost tracking and billing
+- GDPR compliance tools
+
+**Beyond the Roadmap**:
+- Model marketplace (share/download models)
+- Federated learning support
+- Edge deployment (mobile, IoT)
+- TPU support
+- Differential privacy
 
 ---
 

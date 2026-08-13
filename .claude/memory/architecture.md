@@ -2,7 +2,9 @@
 
 ## Overview
 
-Describe the overall architecture.
+GPU-accelerated ML inference API built with FastAPI, PyTorch, and CUDA. Layered architecture with clear separation: API Gateway → Processing Layer → GPU Inference Layer → Storage Layer.
+
+**Full Design**: See `docs/GPU_ML_API_DESIGN.md` for comprehensive architecture diagrams and detailed component specs.
 
 ---
 
