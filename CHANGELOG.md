@@ -4,6 +4,33 @@ All notable changes to this project should be documented here.
 
 ---
 
+## Version 0.2.0 — 2026-08-13 (Phase 2: Driver Foundation)
+
+### Added
+
+* **Custom OpenVR Driver Project** [TICKET-0029]
+  - C++ driver skeleton with IServerTrackedDeviceProvider
+  - Logger utility for debugging and monitoring
+  - CMake build system for cross-platform builds
+  - Build and clean scripts for Windows
+  - Driver manifest and directory structure
+  - BUILD_INSTRUCTIONS.md comprehensive guide
+  - OpenVR SDK integration
+
+### Files Added
+
+* `src/driver/` - Driver source code
+  - `exports.cpp` - DLL entry point (HmdDriverFactory)
+  - `provider/server_provider.h/cpp` - Device provider implementation
+  - `utils/logger.h/cpp` - Logging system
+* `src/driver/CMakeLists.txt` - CMake configuration
+* `scripts/build.bat` - Automated build script
+* `scripts/clean.bat` - Clean build artifacts
+* `docs/BUILD_INSTRUCTIONS.md` - Build and development guide
+* `build/driver/vremulator/resources/driver.vrdrivermanifest` - Driver manifest
+
+---
+
 ## Version 0.1.0 — 2026-08-13 (Phase 1: Null Driver)
 
 ### Added

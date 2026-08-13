@@ -10,6 +10,11 @@ Thumbs.db
 # Build & release output
 /build/*
 !/build/.gitkeep
+!/build/driver/
+/build/driver/*
+!/build/driver/vremulator/
+/build/driver/vremulator/*
+!/build/driver/vremulator/resources/
 /releases/*
 !/releases/.gitkeep
 
@@ -26,6 +31,9 @@ npm-debug.log*
 # .NET
 bin/
 obj/
+
+# OpenVR SDK (cloned, not committed)
+src/openvr_sdk/
 
 # Logs
 *.log
