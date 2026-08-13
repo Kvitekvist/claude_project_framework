@@ -1,51 +1,48 @@
-# AI Project Bootstrap Template
+# VREmulator - Virtual Reality Headset Emulator
 
 ## Overview
 
-This is a copy-pasteable starting point for new AI-assisted software projects.
-It provides a standardized structure, workflow, and long-term memory system so
-that any project built from it stays maintainable over months of AI-assisted
-development, rather than accumulating undocumented, untracked changes.
+VREmulator is a development tool that allows you to develop and test VR applications (specifically SkyrimVR mods) without requiring physical VR hardware. It provides a virtual HMD (Head-Mounted Display) that works with SteamVR and OpenComposite, enabling you to:
+
+- Develop and test SkyrimVR mods without a physical headset
+- Automate VR application testing
+- Debug VR interactions using keyboard/mouse input
+- Simulate VR tracking and input for development purposes
+
+**This project is built on the AI Project Bootstrap framework**, providing a standardized structure, workflow, and long-term memory system for maintainable AI-assisted development.
+
+---
+
+## Features
+
+### Current
+- Comprehensive research documentation
+- Phased implementation roadmap
+
+### Planned
+- **Null Driver Configuration** - Quick setup using SteamVR's built-in null driver
+- **Custom Virtual HMD** - Full-featured OpenVR driver for advanced control
+- **Pose Control** - Keyboard/mouse control for head tracking simulation
+- **Controller Emulation** - Virtual motion controllers
+- **Input Simulation** - Map VR inputs to keyboard/mouse
+- **SkyrimVR Integration** - Optimized for SkyrimVR development workflow
 
 ---
 
 ## Quick Start
 
-### Creating a New Project from This Template
+### For Users
 
-**Prerequisites**: Git and [GitHub CLI](https://cli.github.com/) installed
+**Prerequisites**: 
+- SteamVR installed
+- Windows 10/11
+- SkyrimVR (for testing)
 
-```bash
-# Step 1: Create from template
-gh repo create my-new-project --template Kvitekvist/claude_project_framework --private --clone
-cd my-new-project
+**Coming Soon** - Full setup instructions will be provided once Phase 1 is implemented.
 
-# Step 2: Initialize your project
-.\scripts\init_project.bat
+### For Developers
 
-# Step 3: Start building!
-```
-
-The initialization script will prompt you for project details and customize the template
-for your specific language, framework, and workflow.
-
-**See [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md) for complete setup instructions.**
-
----
-
-## Manual Setup (Alternative)
-
-If you prefer to set up manually:
-
-1. Copy this entire folder to a new location and rename it for the new project.
-2. Open the project in Claude Code.
-3. Answer `.claude/prompts/project_questionnaire.md` (project name, stack,
-   git details, quality requirements, etc.).
-4. Let Claude follow `.claude/prompts/project_init.md` to fill in
-   `.claude/project_config.md`, the memory files, scripts, and root
-   documentation for the new project.
-5. Start requesting features and bug fixes — every change is tracked through
-   the ticket system described below.
+See [`docs/VR_EMULATOR_RESEARCH.md`](docs/VR_EMULATOR_RESEARCH.md) for comprehensive research and implementation details.
 
 ---
 
@@ -89,37 +86,31 @@ See `.claude/PROJECT_SKELETON.md` for the full, authoritative layout.
 
 ---
 
+## Documentation
+
+- **[VR Emulator Research](docs/VR_EMULATOR_RESEARCH.md)** - Comprehensive research on implementation approaches
+- **[CLAUDE.md](.claude/CLAUDE.md)** - AI development workflow and rules
+- **[CHANGELOG.md](CHANGELOG.md)** - Project version history
+
+---
+
+## Technology Stack
+
+- **Language:** C++ (for custom driver development)
+- **VR APIs:** OpenVR, SteamVR
+- **Build System:** Visual Studio / CMake
+- **Target Platform:** Windows 10/11
+- **Primary Use Case:** SkyrimVR mod development
+
+---
+
 ## Version
 
+VREmulator Version: 0.1.0 (Research Phase)  
 Framework Version: 1.1.0
 
 See `.claude/framework_version.md` for framework-level version history and
 migration rules.
-
-### What's New in 1.1.0
-
-* **Ticket Decomposition** - Automatically break large requests into parent/child
-  tickets with dependency tracking
-* **Enhanced Ticket Template** - Support for parent tickets, child tickets, and
-  dependencies
-* **Decomposition Workflow** - Comprehensive guide in
-  `.claude/prompts/decomposition.md` for managing complex multi-part features
-
----
-
-## For Repository Administrators
-
-### Enable GitHub Template Feature
-
-To make this repository usable as a template:
-
-1. Go to **Settings** in this GitHub repository
-2. Under **General**, check ✅ **Template repository**
-3. Save changes
-
-Users can then create new projects using the Quick Start commands above.
-
-See [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md) for administration details.
 
 ---
 
