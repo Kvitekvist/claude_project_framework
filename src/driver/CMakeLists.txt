@@ -11,12 +11,16 @@ set(OPENVR_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../openvr_sdk")
 set(DRIVER_SOURCES
     exports.cpp
     provider/server_provider.cpp
+    devices/hmd/virtual_hmd_device.cpp
     utils/logger.cpp
+    utils/math_utils.cpp
 )
 
 set(DRIVER_HEADERS
     provider/server_provider.h
+    devices/hmd/virtual_hmd_device.h
     utils/logger.h
+    utils/math_utils.h
 )
 
 # Create DLL

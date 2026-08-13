@@ -4,6 +4,30 @@ All notable changes to this project should be documented here.
 
 ---
 
+## Version 0.3.0 — 2026-08-13 (Phase 3: Virtual HMD)
+
+### Added
+
+* **Virtual HMD Device Implementation** [TICKET-0030]
+  - Complete ITrackedDeviceServerDriver implementation
+  - Pose tracking system with position and rotation control
+  - Display configuration (2016x2240@90Hz, Vive-like settings)
+  - Device properties and metadata
+  - Math utilities for quaternion/euler conversions
+  - Integration with server provider
+
+### Files Added
+
+* `src/driver/devices/hmd/virtual_hmd_device.h/cpp` - Virtual HMD implementation
+* `src/driver/utils/math_utils.h/cpp` - VR math utilities
+
+### Changed
+
+* Updated server_provider to create and register HMD device
+* Updated CMakeLists.txt with HMD and math utility sources
+
+---
+
 ## Version 0.2.0 — 2026-08-13 (Phase 2: Driver Foundation)
 
 ### Added

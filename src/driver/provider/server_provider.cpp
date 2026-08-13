@@ -1,5 +1,6 @@
 #include "server_provider.h"
 #include "../utils/logger.h"
+#include "../devices/hmd/virtual_hmd_device.h"
 
 namespace vremulator {
 
@@ -14,7 +15,22 @@ vr::EVRInitError ServerProvider::Init(vr::IVRDriverContext* pDriverContext) {
 
     LOG_INFO("Driver provider initialized successfully");
 
-    // TODO: Create and register HMD device (TICKET-0030)
+    // Create and register HMD device
+    LOG_INFO("Creating virtual HMD device...");
+    m_hmd = std::make_unique<VirtualHMDDevice>();
+    bool added = vr::VRServerDriverHost()->TrackedDeviceAdded(
+        m_hmd->GetSerialNumber().c_str(),
+        vr::TrackedDeviceClass_HMD,
+        m_hmd.get()
+    );
+
+    if (added) {
+        LOG_INFO("Virtual HMD device registered successfully");
+    } else {
+        LOG_ERROR("Failed to register virtual HMD device");
+        return vr::VRInitError_Driver_Failed;
+    }
+
     // TODO: Create and register controller devices (TICKET-0031)
 
     return vr::VRInitError_None;
@@ -23,7 +39,10 @@ vr::EVRInitError ServerProvider::Init(vr::IVRDriverContext* pDriverContext) {
 void ServerProvider::Cleanup() {
     LOG_INFO("VREmulator Driver Cleanup");
 
-    // TODO: Cleanup devices
+    // Cleanup devices
+    if (m_hmd) {
+        m_hmd.reset();
+    }
 
     VR_CLEANUP_SERVER_DRIVER_CONTEXT();
     m_initialized = false;

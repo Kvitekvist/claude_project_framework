@@ -20,8 +20,9 @@ public:
 private:
     bool m_initialized;
 
-    // Device instances will be stored here later
-    // std::unique_ptr<VirtualHMDDevice> m_hmd;
+    // Device instances
+    std::unique_ptr<class VirtualHMDDevice> m_hmd;
+    // TODO: Controllers in TICKET-0031
     // std::unique_ptr<VirtualControllerDevice> m_leftController;
     // std::unique_ptr<VirtualControllerDevice> m_rightController;
 };
