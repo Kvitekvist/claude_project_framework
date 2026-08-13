@@ -54,7 +54,10 @@ const char* const* ServerProvider::GetInterfaceVersions() {
 
 void ServerProvider::RunFrame() {
     // Called every frame by SteamVR
-    // TODO: Update device poses here (TICKET-0030, TICKET-0031)
+    // Update HMD from input
+    if (m_hmd) {
+        m_hmd->UpdateFromInput();
+    }
 }
 
 bool ServerProvider::ShouldBlockStandbyMode() {

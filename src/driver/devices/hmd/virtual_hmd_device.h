@@ -23,12 +23,18 @@ public:
     bool IsActivated() const { return m_activated; }
     std::string GetSerialNumber() const { return m_serialNumber; }
 
-    // Pose control (will be controlled by input system in TICKET-0032)
+    // Pose control
     void UpdatePose(const vr::DriverPose_t& newPose);
     void SetPosition(double x, double y, double z);
     void SetRotation(double yaw, double pitch, double roll);
+    void UpdateFromInput();  // Read from shared memory
 
 private:
+    void InitSharedMemory();
+    void CleanupSharedMemory();
+
+    void* m_sharedMemoryHandle;
+    void* m_sharedMemoryData;
     void SetupProperties();
     void SetDisplayProperties();
 

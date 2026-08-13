@@ -3,6 +3,7 @@
 #include <openvr_driver.h>
 #include <vector>
 #include <memory>
+#include "../devices/hmd/virtual_hmd_device.h"
 
 namespace vremulator {
 
@@ -21,7 +22,7 @@ private:
     bool m_initialized;
 
     // Device instances
-    std::unique_ptr<class VirtualHMDDevice> m_hmd;
+    std::unique_ptr<VirtualHMDDevice> m_hmd;
     // TODO: Controllers in TICKET-0031
     // std::unique_ptr<VirtualControllerDevice> m_leftController;
     // std::unique_ptr<VirtualControllerDevice> m_rightController;
