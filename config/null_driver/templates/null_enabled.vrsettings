@@ -1,0 +1,16 @@
+{
+   "driver_null" : {
+      "enable" : true,
+      "id" : "VREmulator_Null_HMD",
+      "serialNumber" : "VREMULATOR001",
+      "modelNumber" : "VREmulator Null HMD v1.0",
+      "windowX" : 0,
+      "windowY" : 0,
+      "windowWidth" : 1920,
+      "windowHeight" : 1080,
+      "renderWidth" : 2016,
+      "renderHeight" : 2240,
+      "secondsFromVsyncToPhotons" : 0.011,
+      "displayFrequency" : 90
+   }
+}
