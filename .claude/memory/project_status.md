@@ -14,13 +14,13 @@ M1 — Capture & Annotate MVP (parent TICKET-0006)
 
 ## Progress
 
-Phase 1 started — TICKET-0007 scaffold implemented (building), 1 of 8 children
+Phase 1 in progress — TICKET-0007 scaffold + TICKET-0008 capture implemented, 2 of 8 children
 
 ---
 
 ## Active Branch
 
-feature/TICKET-0007 (scaffold)
+feature/TICKET-0008 (capture engine)
 
 ---
 
@@ -62,7 +62,7 @@ cdc29b5 - [TICKET-0003] Add GitHub Template distribution system
 
 ## Next Priority
 
-TICKET-0008 — Capture engine (region-select overlay), after 0007 verification.
+TICKET-0009 — Storage & history model (persist captures as PNG + thumbnails).
 
 ---
 

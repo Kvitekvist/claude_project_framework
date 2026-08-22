@@ -1,11 +1,17 @@
+using SGrab.Models;
+
 namespace SGrab.Services;
 
 /// <summary>
-/// Starts an interactive screen capture. The concrete region-select
-/// implementation arrives in TICKET-0008; TICKET-0007 ships a stub so the
-/// button, hotkey, and tray wiring can be exercised end-to-end.
+/// Starts an interactive region-select screen capture. When the user completes
+/// a selection, <see cref="CaptureCompleted"/> is raised with the captured
+/// image; cancelling (Esc or a zero-size selection) raises nothing.
 /// </summary>
 public interface ICaptureService
 {
+    /// <summary>Raised on the UI thread when a capture is successfully taken.</summary>
+    event EventHandler<CapturedImage>? CaptureCompleted;
+
+    /// <summary>Shows the selection overlay and captures the chosen region.</summary>
     Task StartCaptureAsync();
 }

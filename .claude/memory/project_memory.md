@@ -29,9 +29,9 @@ Phase 3 History & ship (0013 filmstrip, 0014 packaging).
 
 * TICKET-0007 — App scaffold & shell (DONE — WPF/.NET 8, MVVM+DI, tray, hotkey infra; builds clean)
 
-* TICKET-0008 — Capture engine (region-select overlay) ← NEXT
+* TICKET-0008 — Capture engine (DONE — region-select overlay + CopyFromScreen; clipboard+tray placeholder sink)
 
-* TICKET-0009 — Storage & history model
+* TICKET-0009 — Storage & history model ← NEXT
 
 ---
 

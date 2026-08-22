@@ -81,4 +81,17 @@ app launches without crash. Interactive UI checks await user confirmation.
 
 ---
 
+TICKET-0008 (in progress — implemented, pending interactive verification)
+
+Capture engine. Added `CaptureOverlayWindow` (full-screen dimmed virtual-desktop
+overlay, rubber-band selection with live pixel size, Esc/zero-size cancels) and
+`CaptureService` (grabs the selected region via GDI `CopyFromScreen` into a
+32bpp Bitmap after the overlay hides). New shared `CapturedImage` result type;
+`ICaptureService` gained a `CaptureCompleted` event. Replaced StubCaptureService.
+Until storage (0009) + editor (0010) exist, App copies the capture to the
+clipboard and shows a tray balloon. Builds clean. DPI: exact on single/uniform-
+DPI; mixed-DPI multi-monitor mapping deferred (per-monitor overlay refinement).
+
+---
+
 Continue adding completed tickets in chronological order.

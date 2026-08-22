@@ -17,6 +17,11 @@ All notable changes to this template framework should be documented here.
   "New Capture" button and filmstrip placeholder, system-tray icon, global
   hotkey (Ctrl+Shift+S) via `RegisterHotKey`, single-instance guard, and a
   capture stub behind `ICaptureService` (replaced in TICKET-0008). Builds clean.
+* **Capture engine (TICKET-0008)** — real region-select capture: a full-screen
+  dimmed overlay with a rubber-band selection (live pixel dimensions), grabbing
+  the chosen region via GDI `CopyFromScreen`. New `CapturedImage` result type
+  and `ICaptureService.CaptureCompleted` event. Until storage/editor exist, a
+  capture is copied to the clipboard with a tray notification.
 
 ---
 

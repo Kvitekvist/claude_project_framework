@@ -2,7 +2,7 @@
 
 **Status**
 
-Open
+In Progress (implemented; pending interactive verification)
 
 **Type**
 
@@ -43,36 +43,58 @@ Fast, immediate region capture is the product's core "#1" feature.
 
 ## Implementation Plan
 
-* [ ] Real `ICaptureService` implementation replacing `StubCaptureService`
-* [ ] Enumerate monitors (virtual screen bounds, per-monitor DPI aware)
-* [ ] Full-screen borderless topmost overlay window(s) with dimmed backdrop
-* [ ] Rubber-band selection rectangle with live dimensions readout
-* [ ] Capture region via `Graphics.CopyFromScreen` (or BitBlt) into a Bitmap
-* [ ] Esc cancels; release confirms; return capture as a shared image type
-* [ ] Handle multi-monitor + fractional DPI scaling correctly
+* [x] Real `CaptureService : ICaptureService` replacing `StubCaptureService`
+* [x] Full-screen borderless topmost overlay covering the virtual desktop
+* [x] Dimmed backdrop + rubber-band selection rectangle with live px readout
+* [x] Capture region via `Graphics.CopyFromScreen` into a 32bpp Bitmap
+* [x] Esc / zero-size cancels; drag-release confirms
+* [x] `CapturedImage` shared result type (TICKET-0009/0010 consume it)
+* [x] DPI scaling via the overlay window's DPI (exact single-/uniform-DPI)
+* [x] Placeholder sink until 0009/0010: copy to clipboard + tray balloon
+* [ ] Perfect mixed-DPI multi-monitor mapping (deferred — see Notes)
 
 ---
 
 ## Files Modified
 
+* src/SGrab/Models/CapturedImage.cs (new)
+* src/SGrab/Services/ICaptureService.cs (added CaptureCompleted event)
+* src/SGrab/Services/CaptureService.cs (new; replaces StubCaptureService.cs, deleted)
+* src/SGrab/Views/CaptureOverlayWindow.xaml(.cs) (new)
+* src/SGrab/App.xaml.cs (register CaptureService, clipboard+tray sink)
+
 ---
 
 ## Testing
 
-* Hotkey and button both launch the overlay.
-* Selection on primary and secondary monitors captures the correct pixels.
-* DPI-scaled displays capture without offset/stretch.
-* Esc cancels cleanly with no leftover overlay.
+* [x] `dotnet build` clean (0/0); app launches without crash.
+* [ ] Button and Ctrl+Shift+S both open the overlay (interactive).
+* [ ] Drag selects; release captures; clipboard receives the image (interactive).
+* [ ] Esc cancels with no leftover overlay (interactive).
+* [ ] Selection on a secondary monitor captures the correct pixels (interactive).
 
 ---
 
 ## Result
 
+Region-select capture implemented. Overlay dims the whole virtual desktop, the
+user drags a rectangle (live pixel size shown), and the selected region is
+grabbed via GDI `CopyFromScreen` after the overlay hides. Result flows through
+`ICaptureService.CaptureCompleted`; until storage/editor exist, App copies it to
+the clipboard and shows a tray balloon. Builds clean; interactive checks pending.
+
 ---
 
 ## Notes
 
-Capture result type shared with TICKET-0009 (storage) and TICKET-0010 (editor).
+Capture result type (`CapturedImage`) shared with TICKET-0009 (storage) and
+TICKET-0010 (editor).
+
+DPI: selection is tracked in the overlay's DIP space and converted to physical
+pixels using the overlay window's DPI scale. This is exact on single-monitor and
+uniform-DPI multi-monitor setups. On mixed-DPI setups the capture stays WYSIWYG
+on the overlay's own monitor but may be offset on a monitor with a different
+scale; a per-monitor overlay would fix this and is deferred as a refinement.
 
 ---
 

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SGrab.Models;
 using SGrab.Services;
 using SGrab.ViewModels;
 using SGrab.Views;
@@ -40,7 +41,7 @@ public partial class App : System.Windows.Application
         _host = Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
-                services.AddSingleton<ICaptureService, StubCaptureService>();
+                services.AddSingleton<ICaptureService, CaptureService>();
                 services.AddSingleton<IHotkeyService, HotkeyService>();
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<MainWindow>();
@@ -55,6 +56,7 @@ public partial class App : System.Windows.Application
         _mainWindow.Show();
 
         var capture = services.GetRequiredService<ICaptureService>();
+        capture.CaptureCompleted += OnCaptureCompleted;
 
         var hotkeys = services.GetRequiredService<IHotkeyService>();
         hotkeys.Initialize(_mainWindow);
@@ -81,6 +83,28 @@ public partial class App : System.Windows.Application
             ContextMenuStrip = menu,
         };
         _trayIcon.DoubleClick += (_, _) => ShowMainWindow();
+    }
+
+    // Placeholder sink until storage (TICKET-0009) and the editor (TICKET-0010)
+    // are built: copy the capture to the clipboard and notify via the tray.
+    private void OnCaptureCompleted(object? sender, CapturedImage image)
+    {
+        try
+        {
+            WinForms.Clipboard.SetImage(image.Bitmap);
+            _trayIcon?.ShowBalloonTip(2500, "SGrab",
+                $"Captured {image.Width}×{image.Height} — copied to clipboard.",
+                WinForms.ToolTipIcon.Info);
+        }
+        catch (Exception ex)
+        {
+            _trayIcon?.ShowBalloonTip(2500, "SGrab",
+                $"Capture failed: {ex.Message}", WinForms.ToolTipIcon.Error);
+        }
+        finally
+        {
+            image.Dispose();
+        }
     }
 
     /// <summary>Background listener that surfaces the window when a second instance signals.</summary>

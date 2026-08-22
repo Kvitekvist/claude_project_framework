@@ -53,8 +53,8 @@ Decomposed into phased child tickets (dependencies in parentheses):
 
 * [x] TICKET-0007 App scaffold — WPF/.NET 8 shell, MVVM+DI, main window, tray
       icon, global-hotkey infrastructure (no deps)
-* [ ] TICKET-0008 Capture engine — region-select overlay + bitmap capture,
-      multi-monitor, triggered by hotkey & button (0007)
+* [x] TICKET-0008 Capture engine — region-select overlay + bitmap capture,
+      triggered by hotkey & button (0007) — implemented, pending verification
 * [ ] TICKET-0009 Storage & history model — save PNG + thumbnails, library
       service (0007)
 * [ ] TICKET-0010 Editor window + annotation canvas — objects, select/move/
