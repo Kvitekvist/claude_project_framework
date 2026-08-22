@@ -42,6 +42,9 @@
                     <Button x:Name="BtnUndo" Content="Undo" Click="OnUndo" Padding="8,2"/>
                     <Button x:Name="BtnRedo" Content="Redo" Click="OnRedo" Padding="8,2"/>
                     <Button x:Name="BtnDelete" Content="Delete" Click="OnDelete" Padding="8,2"/>
+                    <Separator/>
+                    <Button Content="Copy" Click="OnCopy" Padding="8,2"/>
+                    <Button Content="Save As…" Click="OnSave" Padding="8,2"/>
                 </ToolBar>
             </ToolBarTray>
 

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,6 +16,8 @@ namespace SGrab.Views;
 
 public partial class EditorWindow : Window
 {
+    private static string? _lastDirectory;
+
     private TextAnnotation? _editing;
     private AnnotationObject? _editBefore;
 
@@ -76,6 +79,57 @@ public partial class EditorWindow : Window
     private void OnRedo(object sender, RoutedEventArgs e) => Canvas.Undo.Redo();
 
     private void OnDelete(object sender, RoutedEventArgs e) => Canvas.DeleteSelected();
+
+    private void OnCopy(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            System.Windows.Clipboard.SetImage(Canvas.RenderFlattened());
+        }
+        catch (Exception ex)
+        {
+            System.Windows.MessageBox.Show(this, $"Copy failed: {ex.Message}", "SGrab");
+        }
+    }
+
+    private void OnSave(object sender, RoutedEventArgs e)
+    {
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            Filter = "PNG image (*.png)|*.png|JPEG image (*.jpg)|*.jpg",
+            DefaultExt = ".png",
+            FileName = $"SGrab-{DateTime.Now:yyyyMMdd-HHmmss}.png",
+            InitialDirectory = _lastDirectory ?? string.Empty,
+        };
+
+        if (dialog.ShowDialog(this) != true)
+        {
+            return;
+        }
+
+        try
+        {
+            SaveFlattened(dialog.FileName);
+            _lastDirectory = Path.GetDirectoryName(dialog.FileName);
+        }
+        catch (Exception ex)
+        {
+            System.Windows.MessageBox.Show(this, $"Save failed: {ex.Message}", "SGrab");
+        }
+    }
+
+    private void SaveFlattened(string path)
+    {
+        var bitmap = Canvas.RenderFlattened();
+        string ext = Path.GetExtension(path).ToLowerInvariant();
+        BitmapEncoder encoder = ext is ".jpg" or ".jpeg"
+            ? new JpegBitmapEncoder { QualityLevel = 92 }
+            : new PngBitmapEncoder();
+        encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+        using var stream = File.Create(path);
+        encoder.Save(stream);
+    }
 
     private void OnTextEditRequested(object? sender, TextAnnotation annotation)
     {
@@ -161,6 +215,14 @@ public partial class EditorWindow : Window
                 break;
             case System.Windows.Input.Key.Y:
                 Canvas.Undo.Redo();
+                e.Handled = true;
+                break;
+            case System.Windows.Input.Key.S:
+                OnSave(this, new RoutedEventArgs());
+                e.Handled = true;
+                break;
+            case System.Windows.Input.Key.C:
+                OnCopy(this, new RoutedEventArgs());
                 e.Handled = true;
                 break;
         }

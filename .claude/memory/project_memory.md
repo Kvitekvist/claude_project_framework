@@ -37,7 +37,9 @@ Phase 3 History & ship (0013 filmstrip, 0014 packaging).
 
 * TICKET-0011 — Annotation tools (step/text/rect/ellipse) + color/stroke (DONE)
 
-* TICKET-0012 — Export & clipboard ← NEXT
+* TICKET-0012 — Export & clipboard (DONE — flatten to PNG/JPG + clipboard)
+
+* TICKET-0013 — Filmstrip history bar ← NEXT (Phase 3)
 
 ---
 

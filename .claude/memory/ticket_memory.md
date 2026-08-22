@@ -131,4 +131,14 @@ stroke apply to selection and set the new-object default. Builds clean.
 
 ---
 
+TICKET-0012 (implemented — pending interactive verification)
+
+Export & clipboard. Added `AnnotationCanvas.RenderFlattened()` → RenderTargetBitmap
+at native pixel size (reuses DrawScene without selection handles). EditorWindow
+gained Copy (clipboard) and Save As… (PNG/JPEG via encoders, remembers last
+folder) buttons plus Ctrl+C / Ctrl+S. Library original is left clean (annotated
+copy/persistent annotations deferred). Builds clean.
+
+---
+
 Continue adding completed tickets in chronological order.

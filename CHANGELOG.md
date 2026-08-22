@@ -35,6 +35,9 @@ All notable changes to this template framework should be documented here.
   rectangle, ellipse, and text tools, an 8-swatch colour picker with a custom
   colour dialog, and a stroke-width selector. Colour/stroke apply to the
   selection and become the default for new objects; text edits inline.
+* **Export & clipboard (TICKET-0012)** — flatten the capture + annotations and
+  either Copy to the clipboard or Save As PNG/JPEG (remembers last folder), with
+  Ctrl+C / Ctrl+S shortcuts.
 
 ---
 

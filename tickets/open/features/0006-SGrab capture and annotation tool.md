@@ -61,7 +61,7 @@ Decomposed into phased child tickets (dependencies in parentheses):
       resize/delete, undo/redo (0008, 0009) — implemented, pending verification
 * [x] TICKET-0011 Annotation tools — step bubbles, circle, square, text;
       per-object color picker + stroke width (0010) — implemented, pending verification
-* [ ] TICKET-0012 Export — save annotated image to file + copy to clipboard (0010)
+* [x] TICKET-0012 Export — save annotated image to file + copy to clipboard (0010) — implemented, pending verification
 * [ ] TICKET-0013 Filmstrip — scrollable bottom row of past captures, click
       to reopen in editor (0009, 0010)
 * [ ] TICKET-0014 Build & packaging — build.bat producing publishable exe/

@@ -183,6 +183,27 @@ public class AnnotationCanvas : FrameworkElement
         DrawScene(dc, includeSelection: true);
     }
 
+    /// <summary>
+    /// Renders the capture plus all annotations (no selection handles) to a
+    /// bitmap at the source image's pixel dimensions, for export/clipboard.
+    /// </summary>
+    public RenderTargetBitmap RenderFlattened()
+    {
+        int width = _image?.PixelWidth ?? Math.Max(1, (int)RenderSize.Width);
+        int height = _image?.PixelHeight ?? Math.Max(1, (int)RenderSize.Height);
+
+        var visual = new DrawingVisual();
+        using (var dc = visual.RenderOpen())
+        {
+            DrawScene(dc, includeSelection: false);
+        }
+
+        var target = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+        target.Render(visual);
+        target.Freeze();
+        return target;
+    }
+
     /// <summary>Draws the capture and all annotations; selection handles are optional.</summary>
     public void DrawScene(DrawingContext dc, bool includeSelection)
     {

@@ -2,7 +2,7 @@
 
 **Status**
 
-Open
+In Progress (implemented; pending interactive verification)
 
 **Type**
 
@@ -42,32 +42,45 @@ saved and pasted elsewhere.
 
 ## Implementation Plan
 
-* [ ] Render capture + annotation objects to a flattened bitmap at native res
-* [ ] Save As dialog (PNG default, JPG option), remember last folder
-* [ ] Copy flattened image to clipboard
-* [ ] Toolbar buttons + shortcuts (Ctrl+S save, Ctrl+C copy)
-* [ ] Update the stored library copy on save
+* [x] `AnnotationCanvas.RenderFlattened()` → `RenderTargetBitmap` at native
+      pixel size via the shared `DrawScene` (no selection handles)
+* [x] Save As dialog (PNG default, JPG option); remembers last folder
+* [x] Copy flattened image to clipboard
+* [x] Toolbar buttons + shortcuts (Ctrl+S save, Ctrl+C copy)
+* [ ] Update the stored library copy on save (deferred — see Notes)
 
 ---
 
 ## Files Modified
 
+* src/SGrab/Controls/AnnotationCanvas.cs (RenderFlattened)
+* src/SGrab/Views/EditorWindow.xaml(.cs) (Copy / Save As buttons, encoders,
+  Ctrl+S / Ctrl+C)
+
 ---
 
 ## Testing
 
-* Saved file opens externally and shows annotations correctly.
-* Clipboard paste into another app yields the annotated image.
+* [x] `dotnet build` clean (0/0).
+* [ ] Saved PNG/JPG opens externally and shows annotations (interactive).
+* [ ] Clipboard paste into another app yields the annotated image (interactive).
 
 ---
 
 ## Result
 
+Export implemented: the editor flattens the capture + annotations to a
+`RenderTargetBitmap` (reusing `DrawScene`) and either copies it to the clipboard
+or saves it via a Save As dialog (PNG or JPEG, remembers the last folder), with
+Ctrl+C / Ctrl+S shortcuts.
+
 ---
 
 ## Notes
 
-Reuses the object-rendering path from TICKET-0010.
+Reuses `DrawScene` from TICKET-0010. Annotations are not written back into the
+library original (the store keeps the clean capture); persisting editable
+annotations or an annotated library copy is a deliberate future enhancement.
 
 ---
 
