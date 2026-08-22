@@ -57,8 +57,8 @@ Decomposed into phased child tickets (dependencies in parentheses):
       triggered by hotkey & button (0007) — implemented, pending verification
 * [x] TICKET-0009 Storage & history model — save PNG + thumbnails, library
       service (0007) — done, unit-tested (4/4)
-* [ ] TICKET-0010 Editor window + annotation canvas — objects, select/move/
-      resize/delete, undo/redo (0008, 0009)
+* [x] TICKET-0010 Editor window + annotation canvas — objects, select/move/
+      resize/delete, undo/redo (0008, 0009) — implemented, pending verification
 * [ ] TICKET-0011 Annotation tools — step bubbles, circle, square, text;
       per-object color picker + stroke width (0010)
 * [ ] TICKET-0012 Export — save annotated image to file + copy to clipboard (0010)

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SGrab.Common;
 using SGrab.Models;
 using SGrab.Services;
 using SGrab.ViewModels;
@@ -89,17 +90,17 @@ public partial class App : System.Windows.Application
         _trayIcon.DoubleClick += (_, _) => ShowMainWindow();
     }
 
-    // Save the capture to the library and copy it to the clipboard. Opening the
-    // annotation editor here is wired up in TICKET-0010.
+    // Save the capture to the library, copy it to the clipboard, and open it in
+    // the annotation editor.
     private void OnCaptureCompleted(object? sender, CapturedImage image)
     {
         try
         {
-            _store?.Save(image);
+            var saved = _store?.Save(image);
             WinForms.Clipboard.SetImage(image.Bitmap);
-            _trayIcon?.ShowBalloonTip(2500, "SGrab",
-                $"Captured {image.Width}×{image.Height} — saved & copied to clipboard.",
-                WinForms.ToolTipIcon.Info);
+
+            var source = ImageInterop.ToBitmapSource(image.Bitmap);
+            new EditorWindow(source, saved?.Id).Show();
         }
         catch (Exception ex)
         {

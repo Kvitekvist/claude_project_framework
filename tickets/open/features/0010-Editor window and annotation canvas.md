@@ -2,7 +2,7 @@
 
 **Status**
 
-Open
+In Progress (implemented; pending interactive verification)
 
 **Type**
 
@@ -44,35 +44,50 @@ and recoloring shapes easy — the second core requirement.
 
 ## Implementation Plan
 
-* [ ] `EditorWindow` + `EditorViewModel`, hosts the capture as background
-* [ ] `AnnotationObject` base (bounds, color, stroke, z-order, hit-test)
-* [ ] Canvas surface rendering objects over the image
-* [ ] Selection: click to select, drag to move, handles to resize, Del to remove
-* [ ] Undo/redo stack (command pattern)
-* [ ] Tool abstraction (`IAnnotationTool`) that TICKET-0011 plugs into
+* [x] `EditorWindow` hosting the capture on an owner-drawn `AnnotationCanvas`
+* [x] `AnnotationObject` base (bounds, color, stroke, hit-test, clone/copy)
+* [x] Reference objects: `RectangleAnnotation`, `EllipseAnnotation`
+* [x] Owner-drawn canvas (`OnRender` + reusable `DrawScene`) over the image
+* [x] Selection: click to select, drag to move, 8 handles to resize, Del to remove
+* [x] Undo/redo stack (`UndoStack` + `DelegateAction`); Ctrl+Z / Ctrl+Y
+* [x] `AnnotationTool` enum abstraction that TICKET-0011 extends (Step/Text)
+* [x] Capture now opens in the editor (App.OnCaptureCompleted)
 
 ---
 
 ## Files Modified
 
+* src/SGrab/Common/ImageInterop.cs (new; Bitmap/file → BitmapSource)
+* src/SGrab/Common/Undo/UndoStack.cs (new)
+* src/SGrab/Models/Annotations/{AnnotationObject,RectangleAnnotation,EllipseAnnotation}.cs (new)
+* src/SGrab/Controls/AnnotationCanvas.cs (new)
+* src/SGrab/Views/EditorWindow.xaml(.cs) (new)
+* src/SGrab/App.xaml.cs (open editor on capture)
+
 ---
 
 ## Testing
 
-* Opening a capture shows it at correct size in the editor.
-* An object can be selected, moved, resized, deleted.
-* Undo/redo reverses/replays each edit.
+* [x] `dotnet build` clean (0/0); existing store tests still pass.
+* [ ] Draw rectangle/ellipse; select, move, resize via handles; delete (interactive).
+* [ ] Undo/redo across create/move/resize/delete (interactive).
 
 ---
 
 ## Result
 
+Editor framework complete: an owner-drawn `AnnotationCanvas` renders the capture
+plus retained-mode annotation objects, with click-select, drag-move, 8-handle
+resize, delete, and full undo/redo. Rectangle and ellipse ship as the reference
+tools; step bubbles, text, and colour come in TICKET-0011. The single `DrawScene`
+path is reused by export (TICKET-0012). Captures now open straight in the editor.
+
 ---
 
 ## Notes
 
-Rendering approach chosen here is reused by TICKET-0012 export (render objects
-onto the bitmap).
+Interaction is handled in the control (idiomatic for a canvas); a thin VM was
+unnecessary. `DrawScene(dc, includeSelection:false)` is the export hook.
 
 ---
 

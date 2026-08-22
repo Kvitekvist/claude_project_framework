@@ -1,0 +1,32 @@
+<Window x:Class="SGrab.Views.EditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="clr-namespace:SGrab.Controls"
+        Title="SGrab Editor" Height="720" Width="1040"
+        WindowStartupLocation="CenterScreen"
+        Background="#2D2D30">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top" Background="#3F3F46">
+            <ToolBar Background="#3F3F46">
+                <RadioButton x:Name="ToolSelect" GroupName="tools" IsChecked="True"
+                             Content="Select" Tag="Select" Click="OnToolClick" Padding="8,2"/>
+                <RadioButton x:Name="ToolRect" GroupName="tools"
+                             Content="Rectangle" Tag="Rectangle" Click="OnToolClick" Padding="8,2"/>
+                <RadioButton x:Name="ToolEllipse" GroupName="tools"
+                             Content="Ellipse" Tag="Ellipse" Click="OnToolClick" Padding="8,2"/>
+                <Separator/>
+                <Button x:Name="BtnUndo" Content="Undo" Click="OnUndo" Padding="8,2"/>
+                <Button x:Name="BtnRedo" Content="Redo" Click="OnRedo" Padding="8,2"/>
+                <Separator/>
+                <Button x:Name="BtnDelete" Content="Delete" Click="OnDelete" Padding="8,2"/>
+            </ToolBar>
+        </ToolBarTray>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      Background="#1E1E1E">
+            <ctrl:AnnotationCanvas x:Name="Canvas"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Margin="24"/>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

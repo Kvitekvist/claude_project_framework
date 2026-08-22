@@ -33,7 +33,9 @@ Phase 3 History & ship (0013 filmstrip, 0014 packaging).
 
 * TICKET-0009 — Storage & history model (DONE — FileScreenshotStore, %LocalAppData%/SGrab/Library, 4/4 unit tests)
 
-* TICKET-0010 — Editor window + annotation canvas ← NEXT (Phase 2)
+* TICKET-0010 — Editor window + annotation canvas (DONE — owner-drawn AnnotationCanvas, select/move/resize/delete, undo/redo)
+
+* TICKET-0011 — Annotation tools (step/text) + color ← NEXT
 
 ---
 

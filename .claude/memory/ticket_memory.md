@@ -107,4 +107,16 @@ Changed). Store is UI-agnostic, ready for filmstrip (0013) and editor (0010).
 
 ---
 
+TICKET-0010 (implemented — pending interactive verification)
+
+Editor window + annotation canvas. Added owner-drawn `AnnotationCanvas`
+(FrameworkElement) rendering the capture + retained-mode `AnnotationObject`s via
+a reusable `DrawScene` (also the export hook). Supports click-select, drag-move,
+8-handle resize, delete, and undo/redo (`UndoStack` + `DelegateAction`; Ctrl+Z/Y).
+Reference objects RectangleAnnotation + EllipseAnnotation; `AnnotationTool` enum
+extended by 0011. `ImageInterop` converts Bitmap/file → BitmapSource. Captures
+now open in `EditorWindow` after capture. Builds clean.
+
+---
+
 Continue adding completed tickets in chronological order.

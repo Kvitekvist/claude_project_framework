@@ -27,6 +27,10 @@ All notable changes to this template framework should be documented here.
   exposed newest-first via `IScreenshotStore` with a `Changed` event. Each
   capture is now saved to the library. Added the first test project
   (`tests/SGrab.Tests`, xUnit) with 4 passing storage tests.
+* **Annotation editor (TICKET-0010)** — `EditorWindow` opens a capture on an
+  owner-drawn `AnnotationCanvas`: retained-mode objects with click-select,
+  drag-move, 8-handle resize, delete, and undo/redo (Ctrl+Z/Y). Ships rectangle
+  and ellipse tools; captures open in the editor automatically.
 
 ---
 
