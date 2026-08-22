@@ -94,4 +94,17 @@ DPI; mixed-DPI multi-monitor mapping deferred (per-monitor overlay refinement).
 
 ---
 
+TICKET-0009 (done — unit-tested)
+
+Storage & history model. Added `Screenshot` model, `IScreenshotStore`, and
+`FileScreenshotStore` (library under %LocalAppData%/SGrab/Library with images/,
+thumbs/, index.json manifest). Save encodes PNG + a 200px bicubic thumbnail,
+inserts newest-first, persists the manifest, and raises `Changed`; load prunes
+missing images and tolerates a corrupt manifest; Delete removes files + entry.
+App saves every capture to the store (in addition to clipboard). First tests in
+the repo: `tests/SGrab.Tests` (xUnit), 4/4 passing (save, reload-order, delete,
+Changed). Store is UI-agnostic, ready for filmstrip (0013) and editor (0010).
+
+---
+
 Continue adding completed tickets in chronological order.

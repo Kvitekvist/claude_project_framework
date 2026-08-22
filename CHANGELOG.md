@@ -22,6 +22,11 @@ All notable changes to this template framework should be documented here.
   the chosen region via GDI `CopyFromScreen`. New `CapturedImage` result type
   and `ICaptureService.CaptureCompleted` event. Until storage/editor exist, a
   capture is copied to the clipboard with a tray notification.
+* **Storage & history (TICKET-0009)** — `FileScreenshotStore` persists captures
+  as PNG + thumbnail under `%LocalAppData%/SGrab/Library` with a JSON manifest,
+  exposed newest-first via `IScreenshotStore` with a `Changed` event. Each
+  capture is now saved to the library. Added the first test project
+  (`tests/SGrab.Tests`, xUnit) with 4 passing storage tests.
 
 ---
 

@@ -21,6 +21,7 @@ public partial class App : System.Windows.Application
     private IHost? _host;
     private WinForms.NotifyIcon? _trayIcon;
     private MainWindow? _mainWindow;
+    private IScreenshotStore? _store;
     private bool _isExiting;
 
     protected override void OnStartup(StartupEventArgs e)
@@ -42,6 +43,7 @@ public partial class App : System.Windows.Application
             .ConfigureServices(services =>
             {
                 services.AddSingleton<ICaptureService, CaptureService>();
+                services.AddSingleton<IScreenshotStore, FileScreenshotStore>();
                 services.AddSingleton<IHotkeyService, HotkeyService>();
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<MainWindow>();
@@ -54,6 +56,8 @@ public partial class App : System.Windows.Application
         MainWindow = _mainWindow;
         _mainWindow.Closing += OnMainWindowClosing;
         _mainWindow.Show();
+
+        _store = services.GetRequiredService<IScreenshotStore>();
 
         var capture = services.GetRequiredService<ICaptureService>();
         capture.CaptureCompleted += OnCaptureCompleted;
@@ -85,15 +89,16 @@ public partial class App : System.Windows.Application
         _trayIcon.DoubleClick += (_, _) => ShowMainWindow();
     }
 
-    // Placeholder sink until storage (TICKET-0009) and the editor (TICKET-0010)
-    // are built: copy the capture to the clipboard and notify via the tray.
+    // Save the capture to the library and copy it to the clipboard. Opening the
+    // annotation editor here is wired up in TICKET-0010.
     private void OnCaptureCompleted(object? sender, CapturedImage image)
     {
         try
         {
+            _store?.Save(image);
             WinForms.Clipboard.SetImage(image.Bitmap);
             _trayIcon?.ShowBalloonTip(2500, "SGrab",
-                $"Captured {image.Width}×{image.Height} — copied to clipboard.",
+                $"Captured {image.Width}×{image.Height} — saved & copied to clipboard.",
                 WinForms.ToolTipIcon.Info);
         }
         catch (Exception ex)

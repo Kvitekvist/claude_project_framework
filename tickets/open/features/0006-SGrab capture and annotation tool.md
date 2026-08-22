@@ -55,8 +55,8 @@ Decomposed into phased child tickets (dependencies in parentheses):
       icon, global-hotkey infrastructure (no deps)
 * [x] TICKET-0008 Capture engine — region-select overlay + bitmap capture,
       triggered by hotkey & button (0007) — implemented, pending verification
-* [ ] TICKET-0009 Storage & history model — save PNG + thumbnails, library
-      service (0007)
+* [x] TICKET-0009 Storage & history model — save PNG + thumbnails, library
+      service (0007) — done, unit-tested (4/4)
 * [ ] TICKET-0010 Editor window + annotation canvas — objects, select/move/
       resize/delete, undo/redo (0008, 0009)
 * [ ] TICKET-0011 Annotation tools — step bubbles, circle, square, text;

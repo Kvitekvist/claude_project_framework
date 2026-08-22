@@ -19,9 +19,9 @@ Early development. The MVP is decomposed into tickets under
 | Phase | Ticket | Feature | State |
 |-------|--------|---------|-------|
 | 1 Foundation | 0007 | App scaffold & shell | Implemented (building) |
-| 1 Foundation | 0008 | Capture engine (region select) | Planned |
-| 1 Foundation | 0009 | Storage & history model | Planned |
-| 2 Editor | 0010 | Editor window + annotation canvas | Planned |
+| 1 Foundation | 0008 | Capture engine (region select) | Implemented |
+| 1 Foundation | 0009 | Storage & history model | Done (unit-tested) |
+| 2 Editor | 0010 | Editor window + annotation canvas | Next |
 | 2 Editor | 0011 | Annotation tools + color | Planned |
 | 2 Editor | 0012 | Export & clipboard | Planned |
 | 3 Ship | 0013 | Filmstrip history bar | Planned |
@@ -40,6 +40,7 @@ Requires the **.NET 8 SDK**.
 ```bash
 dotnet build SGrab.sln -c Debug
 dotnet run --project src/SGrab/SGrab.csproj
+dotnet test SGrab.sln          # run unit tests
 ```
 
 A one-command self-contained build (`scripts/build.bat`) arrives in TICKET-0014.

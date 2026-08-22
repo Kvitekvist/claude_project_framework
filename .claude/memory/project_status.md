@@ -14,13 +14,13 @@ M1 — Capture & Annotate MVP (parent TICKET-0006)
 
 ## Progress
 
-Phase 1 in progress — TICKET-0007 scaffold + TICKET-0008 capture implemented, 2 of 8 children
+Phase 1 done — TICKET-0007 scaffold + 0008 capture + 0009 storage, 3 of 8 children
 
 ---
 
 ## Active Branch
 
-feature/TICKET-0008 (capture engine)
+feature/TICKET-0009 (storage & history)
 
 ---
 
@@ -44,13 +44,13 @@ feature/TICKET-0008 (capture engine)
 
 ## Build Status
 
-Unknown
+Passing (dotnet build SGrab.sln, 0 warnings)
 
 ---
 
 ## Test Status
 
-Unknown
+4/4 passing (dotnet test — FileScreenshotStore)
 
 ---
 
@@ -62,7 +62,7 @@ cdc29b5 - [TICKET-0003] Add GitHub Template distribution system
 
 ## Next Priority
 
-TICKET-0009 — Storage & history model (persist captures as PNG + thumbnails).
+TICKET-0010 — Editor window + annotation canvas (Phase 2).
 
 ---
 
