@@ -8,29 +8,33 @@ Update it whenever the technology stack changes.
 
 # Project Information
 
-**Project Name:**
+**Project Name:** SGrab
 
-**Version:**
+**Version:** 1.2.0 (framework); app MVP in progress (M1)
 
-**Created:**
+**Created:** 2026-08-21 (product definition)
 
 ---
 
 # Programming Language
 
-Language:
+Language: C#
 
-Version:
+Version: C# 12 / .NET 8 (LTS)
 
 ---
 
 # Framework
 
-Name:
+Name: WPF (Windows Presentation Foundation)
 
-Version:
+Version: net8.0-windows, x64
 
-Purpose:
+Purpose: Native Windows desktop UI. Chosen for fast global hotkeys,
+transparent full-screen selection overlays, GDI/DirectX screen capture, and a
+retained-mode canvas for annotation objects. Rejected: WinForms (weak
+annotation canvas), Electron (heavy, awkward overlay/hotkeys), C++/Qt (slow UI
+build).
 
 ---
 

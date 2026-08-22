@@ -8,23 +8,30 @@ Update continuously.
 
 ## Project Vision
 
-Describe the long-term goal.
+SGrab is a personal, maintainable Windows screenshot tool inspired by Snagit.
+Long-term goal: fast one-click region capture, a lightweight annotation editor
+(numbered step bubbles, circles, squares, text, easy color changes), and a
+scrollable filmstrip of past screenshots. Optimize for long-term
+maintainability over rapid feature delivery.
 
 ---
 
 ## Current Milestone
 
-Current development milestone.
+M1 — Capture & Annotate MVP (parent TICKET-0006). Phased:
+Phase 1 Foundation (0007 scaffold, 0008 capture, 0009 storage) →
+Phase 2 Editor (0010 canvas, 0011 tools, 0012 export) →
+Phase 3 History & ship (0013 filmstrip, 0014 packaging).
 
 ---
 
 ## Active Priorities
 
-*
+* TICKET-0007 — App scaffold & shell (DONE — WPF/.NET 8, MVVM+DI, tray, hotkey infra; builds clean)
 
-*
+* TICKET-0008 — Capture engine (region-select overlay) ← NEXT
 
-*
+* TICKET-0009 — Storage & history model
 
 ---
 

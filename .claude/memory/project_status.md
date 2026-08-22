@@ -8,25 +8,25 @@
 
 ## Current Milestone
 
-Not Started
+M1 — Capture & Annotate MVP (parent TICKET-0006)
 
 ---
 
 ## Progress
 
-0%
+Phase 1 started — TICKET-0007 scaffold implemented (building), 1 of 8 children
 
 ---
 
 ## Active Branch
 
-main
+feature/TICKET-0007 (scaffold)
 
 ---
 
 ## Open Feature Tickets
 
-0
+8 (TICKET-0006 parent + 0007–0014; 0007 in progress)
 
 ---
 
@@ -62,7 +62,7 @@ cdc29b5 - [TICKET-0003] Add GitHub Template distribution system
 
 ## Next Priority
 
-Define first feature.
+TICKET-0008 — Capture engine (region-select overlay), after 0007 verification.
 
 ---
 

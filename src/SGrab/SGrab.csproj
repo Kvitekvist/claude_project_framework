@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>SGrab</AssemblyName>
+    <RootNamespace>SGrab</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- WFAC010: WinForms wants DPI configured via project property, but this is
+         a WPF-primary app (WinForms is only the tray icon and its DPI bootstrap
+         never runs), so the manifest stays authoritative for WPF per-monitor DPI. -->
+    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>

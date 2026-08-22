@@ -1,16 +1,16 @@
-project_name:
+project_name: SGrab
 
-language:
+language: C#
 
-framework:
+framework: WPF (.NET 8, net8.0-windows)
 
-build_tool:
+build_tool: dotnet / MSBuild
 
-git_provider:
+git_provider: GitHub
 
-build_executable:
+build_executable: yes
 
-auto_push:
+auto_push: yes
 
 ticket_system: markdown
 

@@ -58,4 +58,27 @@ Added ticket subfolder structure system. Created category-based organization (fe
 
 ---
 
+## SGrab product (numbering restarted at 0006 to avoid collision with the
+## framework meta-tickets 0001–0005 above)
+
+TICKET-0006 (parent, open)
+
+SGrab — Snagit-style Windows capture & annotation tool. Decomposed into 8
+phased child tickets (0007–0014). Tech stack decided: C# / .NET 8 (LTS) + WPF,
+MVVM+DI. Phase 1 Foundation → Phase 2 Editor → Phase 3 History & ship.
+
+---
+
+TICKET-0007 (in progress — implemented, pending interactive verification)
+
+App scaffold & shell. Created WPF/.NET 8 project (`src/SGrab`), `SGrab.sln`,
+MVVM base (ViewModelBase, RelayCommand), DI via Microsoft.Extensions.Hosting,
+MainWindow with "New Capture" button + filmstrip placeholder, tray icon
+(NotifyIcon), global-hotkey service (RegisterHotKey; Ctrl+Shift+S), capture
+behind ICaptureService with a StubCaptureService (replaced by 0008),
+single-instance Mutex guard, PerMonitorV2 app.manifest. Builds clean (0/0);
+app launches without crash. Interactive UI checks await user confirmation.
+
+---
+
 Continue adding completed tickets in chronological order.

@@ -2,7 +2,11 @@
 
 ## Overview
 
-Describe the overall architecture.
+SGrab is a single WPF desktop app (.NET 8) using MVVM with dependency
+injection (Microsoft.Extensions.Hosting). No server or network component. Data
+is stored locally on disk. Flow: hotkey/button → capture overlay → bitmap →
+screenshot store → annotation editor → export/clipboard; the filmstrip browses
+the store.
 
 ---
 
@@ -10,23 +14,29 @@ Describe the overall architecture.
 
 ### User Interface
 
-Describe UI.
+WPF/XAML views with MVVM view models. Main window (New Capture button + tray),
+full-screen capture overlay, annotation editor window (retained-mode canvas of
+selectable objects), and a bottom filmstrip of thumbnails.
 
 ### Backend
 
-Describe backend.
+In-process services: `ICaptureService` (region capture), `IScreenshotStore`
+(library persistence), `IHotkeyService` (global hotkeys via Win32
+RegisterHotKey). No external backend.
 
 ### Database
 
-Describe storage.
+None. Screenshots saved as PNG + thumbnails under
+`%LocalAppData%/SGrab/Library`, indexed by a JSON manifest.
 
 ### Networking
 
-Describe networking.
+None.
 
 ### Services
 
-Describe supporting services.
+DI-registered singletons wired in `App.xaml.cs`: capture, store, hotkey, plus
+export/clipboard helpers.
 
 ---
 

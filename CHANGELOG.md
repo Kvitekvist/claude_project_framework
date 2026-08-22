@@ -4,6 +4,22 @@ All notable changes to this template framework should be documented here.
 
 ---
 
+## Unreleased — SGrab product
+
+### Added
+
+* **SGrab defined** — the repository now targets a real product: a Snagit-style
+  Windows screenshot capture & annotation tool (parent TICKET-0006, decomposed
+  into child tickets 0007–0014).
+* Tech stack: C# / .NET 8 (LTS) + WPF, MVVM with dependency injection.
+* **App scaffold (TICKET-0007)** — WPF/.NET 8 project `src/SGrab`, `SGrab.sln`,
+  MVVM base (`ViewModelBase`, `RelayCommand`), DI host, main window with a
+  "New Capture" button and filmstrip placeholder, system-tray icon, global
+  hotkey (Ctrl+Shift+S) via `RegisterHotKey`, single-instance guard, and a
+  capture stub behind `ICaptureService` (replaced in TICKET-0008). Builds clean.
+
+---
+
 ## Version 1.2.0 — 2026-08-06
 
 ### Added
