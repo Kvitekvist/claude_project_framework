@@ -67,6 +67,13 @@ public partial class EditorWindow : Window
 
     private void OnStrokeChanged(object sender, SelectionChangedEventArgs e)
     {
+        // The ComboBox's initial selection fires this during InitializeComponent,
+        // before the Canvas field is assigned — ignore until the canvas exists.
+        if (Canvas is null)
+        {
+            return;
+        }
+
         if (StrokeCombo.SelectedItem is ComboBoxItem { Content: string text }
             && double.TryParse(text, out double width))
         {

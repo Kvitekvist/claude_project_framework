@@ -100,3 +100,12 @@ For large feature sets (10+ items), use phased implementation:
 ## Notes
 
 General development notes.
+
+* **WPF XAML init-order gotcha (TICKET-0027):** a control whose *initial*
+  value in XAML raises a change event (e.g. `ComboBoxItem IsSelected="True"`
+  → `SelectionChanged`) fires that handler *during* `InitializeComponent()`,
+  before x:Name'd elements declared later in the tree are assigned. Handlers
+  that touch such an element (e.g. `Canvas`) must null-guard, or the throw
+  escapes the constructor. This bit `EditorWindow.OnStrokeChanged` and made
+  the whole editor/palette fail to open (the throw was swallowed into a
+  generic "Capture failed" message). Guard the handler, not the caller.

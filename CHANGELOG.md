@@ -45,6 +45,15 @@ All notable changes to this template framework should be documented here.
   self-contained single-file `build\SGrab.exe` (versioned from `version.txt`);
   `scripts\run.bat` runs from source; assembly metadata + app version 0.1.0.
 
+### Fixed
+
+* **Editor palette not showing (TICKET-0027)** — the annotation editor failed
+  to open (only a "Capture failed" / "Could not open screenshot" error
+  appeared) because the stroke-width ComboBox's initial selection raised
+  `SelectionChanged` during `InitializeComponent`, before the `Canvas` element
+  existed, throwing a `NullReferenceException` out of the constructor.
+  `OnStrokeChanged` now no-ops until the canvas is assigned.
+
 ---
 
 ## Version 1.2.0 — 2026-08-06
