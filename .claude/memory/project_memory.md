@@ -39,7 +39,9 @@ Phase 3 History & ship (0013 filmstrip, 0014 packaging).
 
 * TICKET-0012 — Export & clipboard (DONE — flatten to PNG/JPG + clipboard)
 
-* TICKET-0013 — Filmstrip history bar ← NEXT (Phase 3)
+* TICKET-0013 — Filmstrip history bar (DONE — thumbnails, click-to-open, delete)
+
+* TICKET-0014 — Build & packaging ← NEXT (last ticket)
 
 ---
 

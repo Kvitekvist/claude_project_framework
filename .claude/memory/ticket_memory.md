@@ -141,4 +141,17 @@ copy/persistent annotations deferred). Builds clean.
 
 ---
 
+TICKET-0013 (implemented — pending interactive verification)
+
+Filmstrip history bar. MainViewModel now injects IScreenshotStore and exposes an
+ObservableCollection<Screenshot> refreshed on the store's Changed event (UI-thread
+safe). MainWindow shows a horizontally scrollable thumbnail row (ItemsControl +
+horizontal StackPanel); clicking a thumbnail opens it in the editor, a ✕ button
+deletes (with confirm), and an empty-state message shows when the library is
+empty. Added `PathToImageConverter` + `InverseBooleanToVisibilityConverter`.
+Builds clean; app launches. (Right-click delete avoided due to WPF ContextMenu
+DataContext pitfall.)
+
+---
+
 Continue adding completed tickets in chronological order.

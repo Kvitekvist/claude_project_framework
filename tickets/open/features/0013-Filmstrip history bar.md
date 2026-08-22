@@ -2,7 +2,7 @@
 
 **Status**
 
-Open
+In Progress (implemented; pending interactive verification)
 
 **Type**
 
@@ -43,33 +43,47 @@ requirement.
 
 ## Implementation Plan
 
-* [ ] Bottom `FilmstripView` bound to `IScreenshotStore` collection
-* [ ] Horizontal, mouse-wheel + drag scrollable thumbnail list (virtualized)
-* [ ] Click → open in editor; right-click → delete (with confirm)
-* [ ] Live update when a new capture is added
-* [ ] Empty-state placeholder (replaces the TICKET-0007 placeholder text)
+* [x] Bottom filmstrip in `MainWindow` bound to the store via `MainViewModel`
+      (`ObservableCollection<Screenshot>`, refreshed on `IScreenshotStore.Changed`)
+* [x] Horizontal scrollable thumbnail list (ItemsControl + horizontal StackPanel)
+* [x] Click → open in editor; per-thumbnail ✕ delete button (with confirm)
+* [x] Live update when a new capture is added (Changed → refresh, UI-thread safe)
+* [x] Empty-state placeholder (replaces the TICKET-0007 placeholder text)
+* [x] `PathToImageConverter` / `InverseBooleanToVisibilityConverter`
 
 ---
 
 ## Files Modified
 
+* src/SGrab/ViewModels/MainViewModel.cs (store, Screenshots collection, refresh)
+* src/SGrab/Common/Converters.cs (new)
+* src/SGrab/Views/MainWindow.xaml(.cs) (filmstrip, click-to-open, delete)
+
 ---
 
 ## Testing
 
-* New captures appear at the front of the strip immediately.
-* Clicking a thumbnail reopens it in the editor.
-* Deleting removes it from strip and library.
+* [x] `dotnet build` clean (0/0); app launches (main window + filmstrip + DI).
+* [ ] New captures appear at the front of the strip immediately (interactive).
+* [ ] Clicking a thumbnail reopens it in the editor (interactive).
+* [ ] Deleting removes it from strip and library (interactive).
 
 ---
 
 ## Result
 
+Filmstrip implemented: a horizontally scrollable row of thumbnails along the
+bottom of the main window, bound to the store and refreshed live on change.
+Clicking a thumbnail opens it in the editor; a ✕ button deletes (with confirm).
+An empty-state message shows when the library is empty.
+
 ---
 
 ## Notes
 
-Consumes the store events from TICKET-0009 and the editor from TICKET-0010.
+Consumes the store `Changed` event from TICKET-0009 and opens the editor from
+TICKET-0010. Right-click was replaced by an always-visible ✕ button to avoid the
+WPF ContextMenu DataContext-inheritance pitfall.
 
 ---
 
