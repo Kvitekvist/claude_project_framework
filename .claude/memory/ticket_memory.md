@@ -166,4 +166,20 @@ Icon + installer deferred (non-MVP). Completes the 8 children of TICKET-0006.
 
 ---
 
+TICKET-0029 (done — verified)
+
+Editor toolbar swatch contrast & overflow. Black/white swatches were already in
+the palette but effectively invisible/unreachable: the 1px `#707782` ring left
+the black swatch reading as empty space on the `#272A30` bar, and one ToolBar
+band held ~1200px of items in a 1040px window so its tail sat in the `»`
+overflow menu. Fix: swatch ring → 2px `#AEB7C4` (hover now only recolours, no
+1px layout shift); ToolBarTray split into band 0 (tools/colour/line weight,
+measures 792px) and band 1 (Undo/Redo/Delete, Copy, Save As…, 321px);
+`EditorWindow` MinWidth 900 / MinHeight 520 so the palette can never be resized
+into overflow; `HideIdleOverflowButtons()` binds each band's chevron to
+`ToolBar.HasOverflowItems`. Verified by rendering the window offscreen at 1040
+and 900 and asserting `HasOverflowItems == false` on both bands.
+
+---
+
 Continue adding completed tickets in chronological order.

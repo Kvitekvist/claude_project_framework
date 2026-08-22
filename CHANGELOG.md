@@ -54,6 +54,18 @@ All notable changes to this template framework should be documented here.
   existed, throwing a `NullReferenceException` out of the constructor.
   `OnStrokeChanged` now no-ops until the canvas is assigned.
 
+* **Editor toolbar swatch contrast and overflow (TICKET-0029)** — the colour
+  palette always contained black and white, but neither was reliably visible:
+  the black swatch's dim 1px `#707782` ring made it read as empty space on the
+  dark toolbar, and the single toolbar band (~1200px of items in a 1040px
+  window) pushed its tail into the `»` overflow menu, walking back through the
+  swatches as the window narrowed. Swatch rings are now a lighter 2px
+  `#AEB7C4` (hover recolours instead of resizing), the toolbar is split into
+  two `ToolBarTray` bands (tools/colour/line weight, then actions),
+  `EditorWindow` gained `MinWidth`/`MinHeight` that keep the 792px palette band
+  fully visible, and each band's light-themed overflow chevron is now hidden
+  unless it actually has overflow items.
+
 ---
 
 ## Version 1.2.0 — 2026-08-06

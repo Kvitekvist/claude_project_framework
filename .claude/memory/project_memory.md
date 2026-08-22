@@ -109,3 +109,14 @@ General development notes.
   escapes the constructor. This bit `EditorWindow.OnStrokeChanged` and made
   the whole editor/palette fail to open (the throw was swallowed into a
   generic "Capture failed" message). Guard the handler, not the caller.
+
+* **WPF ToolBar overflow chevron (TICKET-0029):** a `ToolBar` renders its
+  light-themed overflow chevron even when `HasOverflowItems` is false, which
+  shows as a white sliver at the right edge of a dark toolbar — one per band.
+  There is no public style key for it (`ToolBar.OverflowButtonStyleKey` does
+  not exist and throws at XAML load); it is a private template part named
+  `OverflowButton`, reachable only via `Template.FindName` after `Loaded`.
+  `EditorWindow.HideIdleOverflowButtons` binds its Visibility to
+  `HasOverflowItems`. Prefer explicit `ToolBarTray` bands plus a window
+  `MinWidth` over relying on the overflow menu — hidden toolbar items read to
+  the user as missing features.
