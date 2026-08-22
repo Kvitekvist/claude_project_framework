@@ -41,6 +41,9 @@ All notable changes to this template framework should be documented here.
 * **Filmstrip history (TICKET-0013)** — a horizontally scrollable row of past
   captures along the bottom of the main window, live-updated from the store;
   click a thumbnail to reopen it in the editor, ✕ to delete.
+* **Build & packaging (TICKET-0014)** — `scripts\build.bat` publishes a
+  self-contained single-file `build\SGrab.exe` (versioned from `version.txt`);
+  `scripts\run.bat` runs from source; assembly metadata + app version 0.1.0.
 
 ---
 

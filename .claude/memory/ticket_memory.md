@@ -154,4 +154,16 @@ DataContext pitfall.)
 
 ---
 
+TICKET-0014 (done — verified)
+
+Build & packaging. `scripts\build.bat` runs `dotnet publish -c Release -r win-x64
+--self-contained -p:PublishSingleFile=true` into `build\` (gitignored), versioned
+from `version.txt` (app now 0.1.0). Added csproj metadata (Product/Company/Title/
+Description/Version) and a conditional win-x64 RID. `scripts\run.bat` = dotnet run.
+Verified: build produces build\SGrab.exe (~156 MB, bundled runtime) that launches
+with no SDK on PATH; `dotnet test` still 4/4. README documents build/run/packaging.
+Icon + installer deferred (non-MVP). Completes the 8 children of TICKET-0006.
+
+---
+
 Continue adding completed tickets in chronological order.

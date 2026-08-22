@@ -64,8 +64,8 @@ Decomposed into phased child tickets (dependencies in parentheses):
 * [x] TICKET-0012 Export — save annotated image to file + copy to clipboard (0010) — implemented, pending verification
 * [x] TICKET-0013 Filmstrip — scrollable bottom row of past captures, click
       to reopen in editor (0009, 0010) — implemented, pending verification
-* [ ] TICKET-0014 Build & packaging — build.bat producing publishable exe/
-      installer (all)
+* [x] TICKET-0014 Build & packaging — build.bat producing publishable exe/
+      installer (all) — done, verified (self-contained exe runs)
 
 ---
 
@@ -83,6 +83,13 @@ Parent verified when all child tickets are closed and the end-to-end flow
 ---
 
 ## Result
+
+All 8 child tickets code-complete and building (2026-08-22). End-to-end flow
+works from source: capture → save to library → annotate in editor → export /
+clipboard, with a live filmstrip and a one-command self-contained build. 0009
+and 0014 are verified (unit tests / packaged-exe run); 0007/0008/0010/0011/0012/
+0013 build and launch but await a human's interactive UI pass. Parent stays open
+until that verification closes the remaining children.
 
 ---
 

@@ -21,11 +21,13 @@ Early development. The MVP is decomposed into tickets under
 | 1 Foundation | 0007 | App scaffold & shell | Implemented (building) |
 | 1 Foundation | 0008 | Capture engine (region select) | Implemented |
 | 1 Foundation | 0009 | Storage & history model | Done (unit-tested) |
-| 2 Editor | 0010 | Editor window + annotation canvas | Next |
-| 2 Editor | 0011 | Annotation tools + color | Planned |
-| 2 Editor | 0012 | Export & clipboard | Planned |
-| 3 Ship | 0013 | Filmstrip history bar | Planned |
-| 3 Ship | 0014 | Build & packaging | Planned |
+| 2 Editor | 0010 | Editor window + annotation canvas | Implemented |
+| 2 Editor | 0011 | Annotation tools + color | Implemented |
+| 2 Editor | 0012 | Export & clipboard | Implemented |
+| 3 Ship | 0013 | Filmstrip history bar | Implemented |
+| 3 Ship | 0014 | Build & packaging | Implemented |
+
+All tickets code-complete and building; interactive UI verification pending.
 
 ## Tech stack
 
@@ -39,11 +41,13 @@ Requires the **.NET 8 SDK**.
 
 ```bash
 dotnet build SGrab.sln -c Debug
-dotnet run --project src/SGrab/SGrab.csproj
-dotnet test SGrab.sln          # run unit tests
+dotnet run --project src/SGrab/SGrab.csproj    # or scripts\run.bat
+dotnet test SGrab.sln                          # run unit tests
 ```
 
-A one-command self-contained build (`scripts/build.bat`) arrives in TICKET-0014.
+**Packaging** — `scripts\build.bat` publishes a self-contained, single-file
+Windows executable (no .NET install needed to run it) to `build\SGrab.exe`,
+versioned from `version.txt`.
 
 ## Project layout
 

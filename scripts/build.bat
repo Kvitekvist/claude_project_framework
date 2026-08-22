@@ -1,7 +1,24 @@
 @echo off
-REM Build script - compiles/packages the project.
-REM Customize this for the project's chosen build tool (see .claude\project_config.md).
-REM Examples: PyInstaller, MSBuild, CMake, npm run build.
+REM Build script - publishes a self-contained, single-file Windows executable.
+setlocal
+cd /d "%~dp0\.."
 
-echo Build script not yet configured for this project.
-echo Edit scripts\build.bat to add the build steps for this project's build tool.
+set /p VERSION=<version.txt
+echo Building SGrab %VERSION% (self-contained, win-x64, single file)...
+echo.
+
+dotnet publish src\SGrab\SGrab.csproj -c Release -r win-x64 --self-contained true ^
+  -p:PublishSingleFile=true ^
+  -p:IncludeNativeLibrariesForSelfExtract=true ^
+  -p:Version=%VERSION% ^
+  -o build
+
+if errorlevel 1 (
+  echo.
+  echo Build FAILED.
+  exit /b 1
+)
+
+echo.
+echo Done. Run:  build\SGrab.exe
+endlocal

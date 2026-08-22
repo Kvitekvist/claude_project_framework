@@ -41,7 +41,10 @@ Phase 3 History & ship (0013 filmstrip, 0014 packaging).
 
 * TICKET-0013 — Filmstrip history bar (DONE — thumbnails, click-to-open, delete)
 
-* TICKET-0014 — Build & packaging ← NEXT (last ticket)
+* TICKET-0014 — Build & packaging (DONE, verified — scripts\build.bat → self-contained build\SGrab.exe)
+
+All 8 children of TICKET-0006 code-complete. Remaining work: interactive UI
+verification of 0007/0008/0010/0011/0012/0013, then close children + parent.
 
 ---
 

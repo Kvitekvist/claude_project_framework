@@ -2,7 +2,7 @@
 
 ## Current Version
 
-1.2.0
+0.1.0 (SGrab app)
 
 ---
 
@@ -14,13 +14,13 @@ M1 — Capture & Annotate MVP (parent TICKET-0006)
 
 ## Progress
 
-Phase 1 done — TICKET-0007 scaffold + 0008 capture + 0009 storage, 3 of 8 children
+All 8 children of TICKET-0006 code-complete (0007–0014); interactive UI verification pending
 
 ---
 
 ## Active Branch
 
-feature/TICKET-0009 (storage & history)
+feature/TICKET-0014 (build & packaging)
 
 ---
 
@@ -62,7 +62,7 @@ cdc29b5 - [TICKET-0003] Add GitHub Template distribution system
 
 ## Next Priority
 
-TICKET-0010 — Editor window + annotation canvas (Phase 2).
+Interactive UI verification, then close children 0007–0014 and parent 0006.
 
 ---
 
