@@ -31,6 +31,10 @@ All notable changes to this template framework should be documented here.
   owner-drawn `AnnotationCanvas`: retained-mode objects with click-select,
   drag-move, 8-handle resize, delete, and undo/redo (Ctrl+Z/Y). Ships rectangle
   and ellipse tools; captures open in the editor automatically.
+* **Annotation tools & colour (TICKET-0011)** — numbered step bubbles (1,2,3…),
+  rectangle, ellipse, and text tools, an 8-swatch colour picker with a custom
+  colour dialog, and a stroke-width selector. Colour/stroke apply to the
+  selection and become the default for new objects; text edits inline.
 
 ---
 

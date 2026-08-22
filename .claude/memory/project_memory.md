@@ -35,7 +35,9 @@ Phase 3 History & ship (0013 filmstrip, 0014 packaging).
 
 * TICKET-0010 — Editor window + annotation canvas (DONE — owner-drawn AnnotationCanvas, select/move/resize/delete, undo/redo)
 
-* TICKET-0011 — Annotation tools (step/text) + color ← NEXT
+* TICKET-0011 — Annotation tools (step/text/rect/ellipse) + color/stroke (DONE)
+
+* TICKET-0012 — Export & clipboard ← NEXT
 
 ---
 

@@ -38,6 +38,7 @@ public class AnnotationCanvas : FrameworkElement
 
     private BitmapSource? _image;
     private AnnotationObject? _selected;
+    private int _stepCounter;
 
     // Interaction state.
     private enum DragMode { None, Creating, Moving, Resizing }
@@ -57,6 +58,9 @@ public class AnnotationCanvas : FrameworkElement
     public event EventHandler? SelectionChanged;
 
     public event EventHandler? UndoStackChanged;
+
+    /// <summary>Raised when a text object should be edited (created or double-clicked).</summary>
+    public event EventHandler<TextAnnotation>? TextEditRequested;
 
     public UndoStack Undo => _undo;
 
@@ -88,9 +92,54 @@ public class AnnotationCanvas : FrameworkElement
         set
         {
             _image = value;
+            _stepCounter = 0;
             InvalidateMeasure();
             InvalidateVisual();
         }
+    }
+
+    /// <summary>Sets the stroke colour of the selection (and the default for new objects), undoably.</summary>
+    public void ApplyColorToSelection(Color color)
+    {
+        CurrentColor = color;
+        if (Selected is { } sel)
+        {
+            var before = sel.Clone();
+            sel.Color = color;
+            NotifyObjectModified(sel, before);
+        }
+    }
+
+    /// <summary>Sets the stroke width of the selection (and the default for new objects), undoably.</summary>
+    public void ApplyStrokeToSelection(double strokeWidth)
+    {
+        CurrentStrokeWidth = strokeWidth;
+        if (Selected is { } sel)
+        {
+            var before = sel.Clone();
+            sel.StrokeWidth = strokeWidth;
+            NotifyObjectModified(sel, before);
+        }
+    }
+
+    /// <summary>Records an undoable edit to <paramref name="target"/> whose new state is already applied.</summary>
+    public void NotifyObjectModified(AnnotationObject target, AnnotationObject before)
+    {
+        var after = target.Clone();
+        _undo.Push(new DelegateAction(
+            undo: () =>
+            {
+                target.CopyFrom(before);
+                InvalidateVisual();
+                SelectionChanged?.Invoke(this, EventArgs.Empty);
+            },
+            redo: () =>
+            {
+                target.CopyFrom(after);
+                InvalidateVisual();
+                SelectionChanged?.Invoke(this, EventArgs.Empty);
+            }));
+        InvalidateVisual();
     }
 
     /// <summary>Removes the selected object (undoable).</summary>
@@ -190,18 +239,36 @@ public class AnnotationCanvas : FrameworkElement
 
         if (ActiveTool == AnnotationTool.Select)
         {
-            BeginSelectOrEdit(pos);
+            BeginSelectOrEdit(pos, e.ClickCount);
         }
         else
         {
             BeginCreate(pos);
         }
 
-        CaptureMouse();
+        // Only grab the mouse for interactions that track drag movement.
+        if (_drag != DragMode.None)
+        {
+            CaptureMouse();
+        }
     }
 
-    private void BeginSelectOrEdit(Point pos)
+    private void BeginSelectOrEdit(Point pos, int clickCount)
     {
+        // Double-click on a text object opens it for editing.
+        if (clickCount == 2)
+        {
+            for (int i = _annotations.Count - 1; i >= 0; i--)
+            {
+                if (_annotations[i] is TextAnnotation text && text.HitTest(pos))
+                {
+                    Selected = text;
+                    TextEditRequested?.Invoke(this, text);
+                    return;
+                }
+            }
+        }
+
         // Resize handle first (only when something is selected).
         if (Selected is { } sel)
         {
@@ -240,11 +307,19 @@ public class AnnotationCanvas : FrameworkElement
 
     private void BeginCreate(Point pos)
     {
-        AnnotationObject created = ActiveTool switch
+        switch (ActiveTool)
         {
-            AnnotationTool.Ellipse => new EllipseAnnotation(),
-            _ => new RectangleAnnotation(),
-        };
+            case AnnotationTool.Step:
+                CreateStep(pos);
+                return;
+            case AnnotationTool.Text:
+                CreateText(pos);
+                return;
+        }
+
+        AnnotationObject created = ActiveTool == AnnotationTool.Ellipse
+            ? new EllipseAnnotation()
+            : new RectangleAnnotation();
 
         created.Color = CurrentColor;
         created.StrokeWidth = CurrentStrokeWidth;
@@ -258,6 +333,63 @@ public class AnnotationCanvas : FrameworkElement
         _drag = DragMode.Creating;
         _dragStart = pos;
         InvalidateVisual();
+    }
+
+    private void CreateStep(Point pos)
+    {
+        var step = new StepAnnotation
+        {
+            Number = ++_stepCounter,
+            Color = CurrentColor,
+            StrokeWidth = CurrentStrokeWidth,
+        };
+        step.X = pos.X - (step.Width / 2);
+        step.Y = pos.Y - (step.Height / 2);
+
+        AddObjectWithUndo(step);
+        Selected = step;
+        InvalidateVisual();
+    }
+
+    private void CreateText(Point pos)
+    {
+        var text = new TextAnnotation
+        {
+            Color = CurrentColor,
+            X = pos.X,
+            Y = pos.Y,
+            Text = "Text",
+        };
+
+        AddObjectWithUndo(text);
+        Selected = text;
+        InvalidateVisual();
+        TextEditRequested?.Invoke(this, text);
+    }
+
+    private void AddObjectWithUndo(AnnotationObject obj)
+    {
+        _annotations.Add(obj);
+        _undo.Push(new DelegateAction(
+            undo: () =>
+            {
+                _annotations.Remove(obj);
+                if (ReferenceEquals(Selected, obj))
+                {
+                    Selected = null;
+                }
+
+                InvalidateVisual();
+            },
+            redo: () =>
+            {
+                if (!_annotations.Contains(obj))
+                {
+                    _annotations.Add(obj);
+                }
+
+                InvalidateVisual();
+            }));
     }
 
     protected override void OnMouseMove(MouseEventArgs e)
@@ -338,7 +470,7 @@ public class AnnotationCanvas : FrameworkElement
         }
         else if (_origClone is { } before)
         {
-            PushModify(sel, before);
+            NotifyObjectModified(sel, before);
         }
 
         _origClone = null;
@@ -375,24 +507,6 @@ public class AnnotationCanvas : FrameworkElement
                 }
 
                 InvalidateVisual();
-            }));
-    }
-
-    private void PushModify(AnnotationObject target, AnnotationObject before)
-    {
-        var after = target.Clone();
-        _undo.Push(new DelegateAction(
-            undo: () =>
-            {
-                target.CopyFrom(before);
-                InvalidateVisual();
-                SelectionChanged?.Invoke(this, EventArgs.Empty);
-            },
-            redo: () =>
-            {
-                target.CopyFrom(after);
-                InvalidateVisual();
-                SelectionChanged?.Invoke(this, EventArgs.Empty);
             }));
     }
 

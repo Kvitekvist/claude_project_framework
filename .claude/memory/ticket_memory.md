@@ -119,4 +119,16 @@ now open in `EditorWindow` after capture. Builds clean.
 
 ---
 
+TICKET-0011 (implemented — pending interactive verification)
+
+Annotation tools + colour. Added `StepAnnotation` (auto-incrementing numbered
+bubble) and `TextAnnotation` (overlay-TextBox editing on create/double-click).
+Extended `AnnotationCanvas` with step/text creation, a `TextEditRequested` event,
+and `ApplyColorToSelection`/`ApplyStrokeToSelection`/`NotifyObjectModified`
+(all undoable). `EditorWindow` toolbar gained Step/Text tools, 8 colour swatches
++ Custom… (WinForms ColorDialog), and a stroke-width combo (1/2/3/5/8). Colour/
+stroke apply to selection and set the new-object default. Builds clean.
+
+---
+
 Continue adding completed tickets in chronological order.

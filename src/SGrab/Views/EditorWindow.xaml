@@ -5,28 +5,58 @@
         Title="SGrab Editor" Height="720" Width="1040"
         WindowStartupLocation="CenterScreen"
         Background="#2D2D30">
-    <DockPanel>
-        <ToolBarTray DockPanel.Dock="Top" Background="#3F3F46">
-            <ToolBar Background="#3F3F46">
-                <RadioButton x:Name="ToolSelect" GroupName="tools" IsChecked="True"
-                             Content="Select" Tag="Select" Click="OnToolClick" Padding="8,2"/>
-                <RadioButton x:Name="ToolRect" GroupName="tools"
-                             Content="Rectangle" Tag="Rectangle" Click="OnToolClick" Padding="8,2"/>
-                <RadioButton x:Name="ToolEllipse" GroupName="tools"
-                             Content="Ellipse" Tag="Ellipse" Click="OnToolClick" Padding="8,2"/>
-                <Separator/>
-                <Button x:Name="BtnUndo" Content="Undo" Click="OnUndo" Padding="8,2"/>
-                <Button x:Name="BtnRedo" Content="Redo" Click="OnRedo" Padding="8,2"/>
-                <Separator/>
-                <Button x:Name="BtnDelete" Content="Delete" Click="OnDelete" Padding="8,2"/>
-            </ToolBar>
-        </ToolBarTray>
+    <Grid>
+        <DockPanel>
+            <ToolBarTray DockPanel.Dock="Top" Background="#3F3F46">
+                <ToolBar Background="#3F3F46">
+                    <RadioButton x:Name="ToolSelect" GroupName="tools" IsChecked="True"
+                                 Content="Select" Tag="Select" Click="OnToolClick" Padding="8,2"/>
+                    <RadioButton x:Name="ToolStep" GroupName="tools"
+                                 Content="Step" Tag="Step" Click="OnToolClick" Padding="8,2"/>
+                    <RadioButton x:Name="ToolRect" GroupName="tools"
+                                 Content="Rectangle" Tag="Rectangle" Click="OnToolClick" Padding="8,2"/>
+                    <RadioButton x:Name="ToolEllipse" GroupName="tools"
+                                 Content="Ellipse" Tag="Ellipse" Click="OnToolClick" Padding="8,2"/>
+                    <RadioButton x:Name="ToolText" GroupName="tools"
+                                 Content="Text" Tag="Text" Click="OnToolClick" Padding="8,2"/>
+                    <Separator/>
+                    <Button Background="#E81123" Tag="#E81123" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Background="#FF8C00" Tag="#FF8C00" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Background="#FFF100" Tag="#FFF100" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Background="#16C60C" Tag="#16C60C" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Background="#0078D7" Tag="#0078D7" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Background="#886CE4" Tag="#886CE4" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Background="#000000" Tag="#000000" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Background="#FFFFFF" Tag="#FFFFFF" Width="22" Height="22" Click="OnColorClick"/>
+                    <Button Content="Custom…" Click="OnCustomColor" Padding="6,2"/>
+                    <Separator/>
+                    <TextBlock Text="Width" Foreground="White" VerticalAlignment="Center" Margin="2,0"/>
+                    <ComboBox x:Name="StrokeCombo" Width="52" SelectionChanged="OnStrokeChanged">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3" IsSelected="True"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="8"/>
+                    </ComboBox>
+                    <Separator/>
+                    <Button x:Name="BtnUndo" Content="Undo" Click="OnUndo" Padding="8,2"/>
+                    <Button x:Name="BtnRedo" Content="Redo" Click="OnRedo" Padding="8,2"/>
+                    <Button x:Name="BtnDelete" Content="Delete" Click="OnDelete" Padding="8,2"/>
+                </ToolBar>
+            </ToolBarTray>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-                      Background="#1E1E1E">
-            <ctrl:AnnotationCanvas x:Name="Canvas"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Margin="24"/>
-        </ScrollViewer>
-    </DockPanel>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                          Background="#1E1E1E">
+                <ctrl:AnnotationCanvas x:Name="Canvas"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Margin="24"/>
+            </ScrollViewer>
+        </DockPanel>
+
+        <!-- In-place text editor, positioned over the text object on demand. -->
+        <TextBox x:Name="EditBox" Visibility="Collapsed"
+                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                 MinWidth="90" Padding="2,0" BorderBrush="#0078D7" BorderThickness="1"
+                 KeyDown="OnEditBoxKeyDown" LostKeyboardFocus="OnEditBoxLostFocus"/>
+    </Grid>
 </Window>
